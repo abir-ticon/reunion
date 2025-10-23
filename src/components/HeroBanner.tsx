@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function HeroBanner() {
   return (
     <section
-      className="relative"
+      className="relative bg-white"
       style={{
         backgroundImage: "url('/images/hero-bg.png')",
         backgroundSize: "cover",
