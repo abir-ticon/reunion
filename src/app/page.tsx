@@ -7,9 +7,11 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />
-      <HeroBanner />
-      <AboutSection />
-      <Footer />
+      <div className="pt-20 md:pt-20">
+        <HeroBanner />
+        <AboutSection />
+        <Footer />
+      </div>
     </div>
   );
 }

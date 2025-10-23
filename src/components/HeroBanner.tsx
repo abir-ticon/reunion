@@ -2,17 +2,17 @@ import Image from "next/image";
 
 export default function HeroBanner() {
   return (
-    <section className="relative" style={{backgroundImage: "url('/images/hero-bg.png')"}}>
+    <section className="relative" style={{backgroundImage: "url('/images/hero-bg.png')",backgroundSize: "cover",backgroundPosition: "center"}}>
      
-      <div className="relative mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative mx-auto pt-[100px] md:pt-[156px] pb-[77px] max-w-7xl px-4">
         <div className="text-center">
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#007BFF]">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-[#007BFF] leading-[1]">
             Welcome to the <br /> Alumni Program Registration
           </h1>
 
           {/* Description */}
-          <p className="text-lg md:text-xl mb-8  mx-auto text-[#333]">
+          <p className="text-lg md:text-xl mb-8 mx-auto text-[#333]">
             Reconnect with fellow alumni through our exclusive event. Register
             now to secure your spot
           </p>
