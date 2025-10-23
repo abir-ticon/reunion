@@ -1,10 +1,12 @@
 "use client";
 
+import { useModal } from "@/contexts/ModalContext";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { openModal } = useModal();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -20,6 +22,11 @@ export default function Header() {
     if (footer) {
       footer.scrollIntoView({ behavior: "smooth" });
     }
+    setIsMenuOpen(false);
+  };
+
+  const handleRegisterClick = () => {
+    openModal();
     setIsMenuOpen(false);
   };
 
@@ -58,7 +65,10 @@ export default function Header() {
             >
               Contact Us
             </button>
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer">
+            <button
+              onClick={handleRegisterClick}
+              className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer"
+            >
               Register Now
             </button>
           </div>
@@ -112,7 +122,7 @@ export default function Header() {
             </button>
             <button
               className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer w-full"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={handleRegisterClick}
             >
               Register Now
             </button>

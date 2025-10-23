@@ -1,6 +1,11 @@
+"use client";
+
+import { useModal } from "@/contexts/ModalContext";
 import Image from "next/image";
 
 export default function HeroBanner() {
+  const { openModal } = useModal();
+
   return (
     <section
       className="relative bg-white"
@@ -23,7 +28,10 @@ export default function HeroBanner() {
           </p>
 
           {/* CTA Button */}
-          <button className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer">
+          <button
+            onClick={openModal}
+            className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
+          >
             <span>Register Now</span>
 
             <Image
