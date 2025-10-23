@@ -3,16 +3,12 @@ export default function Footer() {
     <footer
       id="contact"
       className="bg-white border-t border-gray-200 relative overflow-hidden"
+      style={{
+        backgroundImage: "url('/images/footer-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      {/* Background Decorative Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-4 left-10 text-4xl">📅</div>
-        <div className="absolute top-8 right-20 text-3xl">💡</div>
-        <div className="absolute bottom-4 left-1/4 text-3xl">✏️</div>
-        <div className="absolute bottom-8 right-10 text-4xl">⚙️</div>
-        <div className="absolute top-1/2 left-20 text-3xl">📄</div>
-      </div>
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center text-[#555555] text-[16px] flex flex-col items-center justify-center gap-4">
           {/* Address */}
