@@ -10,20 +10,38 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsMenuOpen(false);
+  };
+
+  const scrollToContact = () => {
+    const footer = document.getElementById("contact");
+    if (footer) {
+      footer.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm backdrop-blur-sm bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Left side - Logo and School Name */}
           <div className="flex items-center space-x-4">
-            {/* School Logo */}
-            <Image
-              src="/images/logo.svg"
-              alt="School Logo"
-              width={48}
-              height={48}
-              className="w-12 h-12"
-            />
+            {/* School Logo - Clickable to scroll to top */}
+            <button
+              onClick={scrollToTop}
+              className="focus:outline-none rounded-lg cursor-pointer"
+            >
+              <Image
+                src="/images/logo.svg"
+                alt="School Logo"
+                width={48}
+                height={48}
+                className="w-12 h-12 hover:opacity-80 transition-opacity"
+              />
+            </button>
             {/* School Name - Hidden on mobile */}
             <div className="text-gray-800 hidden md:block">
               <h1 className="text-lg font-semibold text-[#1E293B]">
@@ -34,12 +52,12 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-10">
-            <a
-              href="#contact"
-              className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+            <button
+              onClick={scrollToContact}
+              className="text-gray-700 hover:text-gray-900 font-medium transition-colors cursor-pointer"
             >
               Contact Us
-            </a>
+            </button>
             <button className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer">
               Register Now
             </button>
@@ -86,13 +104,12 @@ export default function Header() {
             </div>
 
             {/* Mobile Navigation Links */}
-            <a
-              href="#contact"
-              className="text-gray-700 hover:text-gray-900 font-medium transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
+            <button
+              onClick={scrollToContact}
+              className="text-gray-700 hover:text-gray-900 font-medium transition-colors py-2 text-left cursor-pointer"
             >
               Contact Us
-            </a>
+            </button>
             <button
               className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer w-full"
               onClick={() => setIsMenuOpen(false)}

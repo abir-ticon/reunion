@@ -1,6 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200 relative overflow-hidden">
+    <footer
+      id="contact"
+      className="bg-white border-t border-gray-200 relative overflow-hidden"
+    >
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-4 left-10 text-4xl">📅</div>
@@ -13,7 +16,13 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center text-[#555555] text-[16px] flex flex-col items-center justify-center gap-4">
           {/* Address */}
-          <a href="https://maps.app.goo.gl/Ka9tdty4WoTF4hW86" target="_blank" className="">ইব্রাহিমপুর, হরিরামপুর, মানিকগঞ্জ</a>
+          <a
+            href="https://maps.app.goo.gl/Ka9tdty4WoTF4hW86"
+            target="_blank"
+            className=""
+          >
+            ইব্রাহিমপুর, হরিরামপুর, মানিকগঞ্জ
+          </a>
 
           {/* Contact Information */}
           <div className="flex md:flex-row flex-col items-center justify-center gap-2 md:gap-4">
