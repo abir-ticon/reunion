@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function HeroBanner() {
   return (
     <section
@@ -21,30 +23,15 @@ export default function HeroBanner() {
           </p>
 
           {/* CTA Button */}
-          <button className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-lg font-semibold transition-colors inline-flex items-center space-x-2 cursor-pointer">
+          <button className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer">
             <span>Register Now</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M18.5 12H5"
-                stroke="#F1F5F9"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M13 18C13 18 19 13.5811 19 12C19 10.4188 13 6 13 6"
-                stroke="#F1F5F9"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+
+            <Image
+              width={24}
+              height={24}
+              src="/images/arrow-right-white.svg"
+              alt="Arrow Right"
+            />
           </button>
         </div>
       </div>
