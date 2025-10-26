@@ -19,6 +19,7 @@ interface Step3SummaryProps {
   guests: Guest[];
   onEditParticipant: () => void;
   onEditGuests: () => void;
+  onImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Step3Summary({
@@ -26,6 +27,7 @@ export default function Step3Summary({
   guests,
   onEditParticipant,
   onEditGuests,
+  onImageUpload,
 }: Step3SummaryProps) {
   const participantCost = 200;
   const guestCost = 150;
@@ -43,12 +45,12 @@ export default function Step3Summary({
         }}
       >
         <div className="flex justify-between items-center mb-6">
-          <h3 className="font-semibold text-gray-800 text-lg">
+          <h3 className="font-semibold text-[#1E293B] text-lg">
             Participant Summary
           </h3>
           <button
             onClick={onEditParticipant}
-            className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline"
+            className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline font-medium"
           >
             <svg
               className="w-4 h-4"
@@ -66,57 +68,92 @@ export default function Step3Summary({
             <span>Edit Info</span>
           </button>
         </div>
-        <div className="flex items-start space-x-4">
-          <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center relative">
-            {participantData.profileImage ? (
-              <Image
-                src={URL.createObjectURL(participantData.profileImage)}
-                alt="Profile"
-                width={80}
-                height={80}
-                className="w-20 h-20 rounded-full object-cover"
-              />
-            ) : (
-              <svg
-                className="w-10 h-10 text-gray-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clipRule="evenodd"
+        <div className="flex items-start space-x-6 gap-[60px]">
+          {/* Profile Picture Section */}
+          <div className="flex flex-col items-center">
+            <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden mb-2">
+              {participantData.profileImage ? (
+                <Image
+                  src={URL.createObjectURL(participantData.profileImage)}
+                  alt="Profile"
+                  width={80}
+                  height={80}
+                  className="w-20 h-20 rounded-full object-cover"
                 />
-              </svg>
-            )}
-            <button className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 text-[#007BFF] text-xs">
-              Change
-            </button>
+              ) : (
+                <svg
+                  className="w-10 h-10 text-gray-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
+            </div>
+            <div>
+              <input
+                type="file"
+                id="changeProfileImage"
+                onChange={onImageUpload}
+                accept="image/*"
+                className="hidden"
+              />
+              <button
+                onClick={() =>
+                  document.getElementById("changeProfileImage")?.click()
+                }
+                className="text-[#007BFF] text-xs font-medium hover:underline"
+              >
+                Change
+              </button>
+            </div>
           </div>
-          <div className="flex-1 space-y-2">
+
+          {/* Details Section */}
+          <div className="flex-1 space-y-3">
             <div>
-              <span className="text-gray-500 text-sm">Name</span>
-              <p className="font-medium text-gray-800">
-                {participantData.name || "Name not provided"}
-              </p>
+              <div className="flex items-start justify-between">
+                <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
+                  Name
+                </span>
+                <p className="font-medium text-[#1E293B]">
+                  {participantData.name || "Name not provided"}
+                </p>
+              </div>
             </div>
             <div>
-              <span className="text-gray-500 text-sm">Mobile</span>
-              <p className="text-gray-800">
-                {participantData.mobile || "Mobile not provided"}
-              </p>
+              <div className="flex items-start justify-between">
+                <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
+                  Mobile
+                </span>
+                <p className="text-[#1E293B]">
+                  {participantData.mobile || "Mobile not provided"}
+                </p>
+              </div>
             </div>
             <div>
-              <span className="text-gray-500 text-sm">Email</span>
-              <p className="text-gray-800">
-                {participantData.email || "Email not provided"}
-              </p>
+              <div className="flex items-start justify-between">
+                <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
+                  Email
+                </span>
+                <p className="text-[#1E293B]">
+                  {participantData.email || "Email not provided"}
+                </p>
+              </div>
             </div>
             <div>
-              <span className="text-gray-500 text-sm">Batch</span>
-              <p className="text-gray-800">
-                {participantData.sscBatch || "Not selected"}
-              </p>
+              <div className="flex items-start justify-between">
+                <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
+                  Batch
+                </span>
+                <p className="text-[#1E293B]">
+                  {participantData.sscBatch || "Not selected"}
+                </p>
+              </div>
             </div>
           </div>
         </div>

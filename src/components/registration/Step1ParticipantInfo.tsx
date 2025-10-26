@@ -161,7 +161,7 @@ export default function Step1ParticipantInfo({
             accept="image/*"
             className="hidden"
           />
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 flex-col md:flex-row gap-2 md:gap-0">
             <div className="flex items-center text-[#94A3B8] space-x-2 border border-gray-300 rounded-lg px-2 py-1">
               <Image
                 src="/images/upload-icon.svg"

@@ -259,6 +259,7 @@ export default function RegistrationModal({
             guests={guests}
             onEditParticipant={() => setCurrentStep(1)}
             onEditGuests={() => setCurrentStep(2)}
+            onImageUpload={handleImageUpload}
           />
         );
       case 4:
@@ -310,7 +311,7 @@ export default function RegistrationModal({
           <p className="text-xl text-[#007BFF] font-medium">
             Step {currentStep} of 4
           </p>
-          <h2 className="text-3xl font-bold text-[#1E293B]">
+          <h2 className="md:text-3xl text-xl font-bold text-[#1E293B]">
             {getStepTitle()}
           </h2>
         </div>
