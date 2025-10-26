@@ -210,32 +210,21 @@ export default function RegistrationModal({
           Profile Image
         </label>
         <div
-          className="border border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+          className="border border-gray-300 rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors"
           onClick={() => document.getElementById("profileImage")?.click()}
         >
           <input
             type="file"
             id="profileImage"
             onChange={handleImageUpload}
+
             accept="image/*"
             className="hidden"
           />
           <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-2 text-[#007BFF]">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                />
-              </svg>
-              <span className="font-medium">Upload image</span>
+            <div className="flex items-center text-[#94A3B8] space-x-2 border border-gray-300 rounded-lg px-2 py-1">
+              <Image src="/images/upload-icon.svg" alt="Upload Image" width={16} height={16} />
+              <span className="text-sm">Upload image</span>
             </div>
             <div className="flex-1">
               <p className="text-gray-500 text-sm">
@@ -589,10 +578,7 @@ export default function RegistrationModal({
       style={{ backgroundColor: "#EFEFEF" }}
       onClick={handleBackdropClick}
     >
-      <div
-        className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
-        style={{ width: "846px", padding: "64px 154px" }}
-      >
+      <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 md:px-[154px] py-8 md:py-[64px]">
         {/* Modal Header */}
         <div className="mb-8">
           <p className="text-sm text-[#007BFF] font-medium">
