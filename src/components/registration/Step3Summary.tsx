@@ -169,10 +169,12 @@ export default function Step3Summary({
         }}
       >
         <div className="flex justify-between items-center mb-6">
-          <h3 className="font-semibold text-gray-800 text-lg">Guest Summary</h3>
+          <h3 className="font-semibold text-[#1E293B] text-lg">
+            Guest Summary
+          </h3>
           <button
             onClick={onEditGuests}
-            className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline"
+            className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline font-medium"
           >
             <svg
               className="w-4 h-4"
@@ -191,14 +193,17 @@ export default function Step3Summary({
           </button>
         </div>
         {guests.length > 0 ? (
-          <div className="space-y-3">
+          <div className="space-y-0">
             {guests.map((guest, index) => (
-              <div key={guest.id} className="flex items-center justify-between">
-                <div>
-                  <span className="text-gray-500 text-sm">
+              <div key={guest.id}>
+                {index > 0 && (
+                  <div className="border-t border-gray-200 my-3"></div>
+                )}
+                <div className="flex items-center justify-between py-1">
+                  <span className="text-[#6A6A6A] text-sm font-medium">
                     Guest {index + 1}
                   </span>
-                  <p className="font-medium text-gray-800">
+                  <p className="text-[#6A6A6A]">
                     {guest.name || "Guest name"}
                   </p>
                 </div>
@@ -206,7 +211,7 @@ export default function Step3Summary({
             ))}
           </div>
         ) : (
-          <p className="text-gray-500 text-sm">No guests added</p>
+          <p className="text-[#6A6A6A] text-sm">No guests added</p>
         )}
       </div>
 

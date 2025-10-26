@@ -43,69 +43,96 @@ export default function Step2Guests({
         <span className="text-[16px]">Add Guest</span>
       </button>
 
-      {guests.map((guest) => (
-        <div
-          key={guest.id}
-          className="flex items-end md:space-x-4 flex-col md:flex-row gap-2 md:gap-0"
-        >
-          <div className="md:flex-1 flex-auto w-full">
-            <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
-              Name
-            </label>
-            <input
-              type="text"
-              value={guest.name}
-              onChange={(e) => onUpdateGuest(guest.id, "name", e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
-              style={{ color: "#6A6A6A" }}
-              placeholder="Enter guest name"
-            />
+      {guests.length === 0 ? (
+        <div className="text-center py-8 bg-gray-50 rounded-lg border border-gray-200">
+          <div className="mb-4">
+            <svg
+              className="mx-auto h-12 w-12 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
           </div>
-          <div className="md:flex-1 flex-auto flex gap-2 w-full items-end">
-            <div className="w-full">
+          <p className="text-gray-600 mb-2">No guests added yet</p>
+          <p className="text-sm text-gray-500">
+            Click the &quot;Add Guest&quot; button above to invite someone to
+            join you
+          </p>
+        </div>
+      ) : (
+        guests.map((guest) => (
+          <div
+            key={guest.id}
+            className="flex items-end md:space-x-4 flex-col md:flex-row gap-2 md:gap-0"
+          >
+            <div className="md:flex-1 flex-auto w-full">
               <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
-                Relationship
+                Name
               </label>
-              <div className="relative">
-                <select
-                  value={guest.relationship}
-                  onChange={(e) =>
-                    onUpdateGuest(guest.id, "relationship", e.target.value)
-                  }
-                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors appearance-none"
-                  style={{ color: "#6A6A6A" }}
-                >
-                  <option value="Spouse">Spouse</option>
-                  <option value="Child">Child</option>
-                  <option value="Family">Family</option>
-                  <option value="Friend">Friend</option>
-                  <option value="Colleague">Colleague</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  <Image
-                    src="/images/dropdown-arrow.svg"
-                    alt="Dropdown"
-                    width={24}
-                    height={24}
-                  />
+              <input
+                type="text"
+                value={guest.name}
+                onChange={(e) =>
+                  onUpdateGuest(guest.id, "name", e.target.value)
+                }
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
+                style={{ color: "#6A6A6A" }}
+                placeholder="Enter guest name"
+              />
+            </div>
+            <div className="md:flex-1 flex-auto flex gap-2 w-full items-end">
+              <div className="w-full">
+                <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
+                  Relationship
+                </label>
+                <div className="relative">
+                  <select
+                    value={guest.relationship}
+                    onChange={(e) =>
+                      onUpdateGuest(guest.id, "relationship", e.target.value)
+                    }
+                    className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors appearance-none"
+                    style={{ color: "#6A6A6A" }}
+                  >
+                    <option value="Spouse">Spouse</option>
+                    <option value="Child">Child</option>
+                    <option value="Family">Family</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Colleague">Colleague</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <Image
+                      src="/images/dropdown-arrow.svg"
+                      alt="Dropdown"
+                      width={24}
+                      height={24}
+                    />
+                  </div>
                 </div>
               </div>
+              <button
+                type="button"
+                onClick={() => onRemoveGuest(guest.id)}
+                className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer mb-2"
+              >
+                <Image
+                  src="/images/delete-icon.svg"
+                  alt="Remove Guest"
+                  width={40}
+                  height={40}
+                />
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={() => onRemoveGuest(guest.id)}
-              className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer mb-2"
-            >
-              <Image
-                src="/images/delete-icon.svg"
-                alt="Remove Guest"
-                width={40}
-                height={40}
-              />
-            </button>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 }
