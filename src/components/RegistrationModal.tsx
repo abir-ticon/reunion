@@ -183,18 +183,8 @@ export default function RegistrationModal({
     };
 
     // Log all data to console
-    console.log("====================================");
-    console.log("REGISTRATION FORM DATA SUBMITTED:");
-    console.log("====================================");
-    console.log("\n📝 PARTICIPANT INFORMATION:");
-    console.log(participantData);
-    console.log("\n👥 GUEST INFORMATION:");
-    console.log(guests);
-    console.log("\n💰 COST BREAKDOWN:");
-    console.log(submissionData.totalCost);
-    console.log("\n✅ Complete Submission Data:");
+
     console.log(JSON.stringify(submissionData, null, 2));
-    console.log("====================================");
 
     // Reset form and close modal
     setParticipantData({
