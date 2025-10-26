@@ -108,7 +108,13 @@ export default function RegistrationModal({
   };
 
   const validateStep2 = () => {
-    // Check if any guest exists with empty name (only validate if guests exist)
+    // If no guests, validation passes (user can skip)
+    if (guests.length === 0) {
+      setErrors({});
+      return true;
+    }
+
+    // Check if any guest exists with empty name
     const incompleteGuests = guests.filter((guest) => !guest.name.trim());
 
     if (incompleteGuests.length > 0) {
@@ -128,16 +134,8 @@ export default function RegistrationModal({
       if (!validateStep1()) {
         return;
       }
-      // Add default guest when moving to step 2
-      if (guests.length === 0) {
-        const newGuest: Guest = {
-          id: Date.now().toString(),
-          name: "",
-          relationship: "Family",
-        };
-        setGuests([newGuest]);
-      }
     } else if (currentStep === 2) {
+      // Only validate if there are guests with incomplete info
       if (!validateStep2()) {
         return;
       }
@@ -151,17 +149,7 @@ export default function RegistrationModal({
 
   const prevStep = () => {
     if (currentStep > 1) {
-      const newStep = currentStep - 1;
-      setCurrentStep(newStep);
-      // Add default guest when going back to step 2 if no guests exist
-      if (newStep === 2 && guests.length === 0) {
-        const newGuest: Guest = {
-          id: Date.now().toString(),
-          name: "",
-          relationship: "Family",
-        };
-        setGuests([newGuest]);
-      }
+      setCurrentStep(currentStep - 1);
     }
   };
 
@@ -320,7 +308,7 @@ export default function RegistrationModal({
         <div className="mb-8">{renderStepContent()}</div>
 
         {/* Navigation Buttons */}
-        <div className="flex gap-6">
+        <div className="flex gap-6 sm:flex-row flex-col">
           <button
             type="button"
             onClick={currentStep === 1 ? onClose : prevStep}
@@ -335,7 +323,11 @@ export default function RegistrationModal({
               onClick={nextStep}
               className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
-              {currentStep === 3 ? "Proceed to Payment" : "Next"}
+              {currentStep === 3
+                ? "Proceed to Payment"
+                : currentStep === 2 && guests.length === 0
+                ? "Skip"
+                : "Next"}
             </button>
           ) : (
             <button

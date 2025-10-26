@@ -68,9 +68,9 @@ export default function Step3Summary({
             <span>Edit Info</span>
           </button>
         </div>
-        <div className="flex items-start space-x-6 gap-[60px]">
+        <div className="flex items-start space-x-6 md:gap-[60px] gap-4 md:flex-row flex-col">
           {/* Profile Picture Section */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-row md:gap-0 gap-4 items-center md:flex-col">
             <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden mb-2">
               {participantData.profileImage ? (
                 <Image
@@ -106,7 +106,7 @@ export default function Step3Summary({
                 onClick={() =>
                   document.getElementById("changeProfileImage")?.click()
                 }
-                className="text-[#007BFF] text-xs font-medium hover:underline"
+                className="text-[#007BFF] text-xs font-medium hover:underline cursor-pointer"
               >
                 Change
               </button>
@@ -120,7 +120,7 @@ export default function Step3Summary({
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
                   Name
                 </span>
-                <p className="font-medium text-[#1E293B]">
+                <p className="text-[#1E293B]">
                   {participantData.name || "Name not provided"}
                 </p>
               </div>
@@ -174,7 +174,7 @@ export default function Step3Summary({
           </h3>
           <button
             onClick={onEditGuests}
-            className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline font-medium"
+            className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline font-medium cursor-pointer"
           >
             <svg
               className="w-4 h-4"
@@ -203,9 +203,7 @@ export default function Step3Summary({
                   <span className="text-[#6A6A6A] text-sm font-medium">
                     Guest {index + 1}
                   </span>
-                  <p className="text-[#6A6A6A]">
-                    {guest.name || "Guest name"}
-                  </p>
+                  <p className="text-[#6A6A6A]">{guest.name || "Guest name"}</p>
                 </div>
               </div>
             ))}
@@ -224,27 +222,38 @@ export default function Step3Summary({
           backgroundColor: "white",
         }}
       >
-        <h3 className="font-semibold text-gray-800 text-lg mb-6">
+        <h3 className="font-semibold text-[#1E293B] text-lg mb-6">
           Cost Breakdown
         </h3>
-        <div className="space-y-3">
-          <div className="flex justify-between">
-            <span className="text-gray-500">Participant:</span>
-            <span className="text-gray-800">{participantCost} BDT</span>
+        <div className="space-y-0">
+          {/* Participant */}
+          <div className="flex justify-between py-2">
+            <span className="text-[#6A6A6A]">Participant</span>
+            <span className="text-[#6A6A6A]">{participantCost} BDT</span>
           </div>
+
+          {/* Separator */}
           {guests.length > 0 && (
-            <div className="flex justify-between">
-              <span className="text-gray-500">Each Guest:</span>
-              <span className="text-gray-800">
+            <div className="border-t border-[#BFBFBF] my-3"></div>
+          )}
+
+          {/* Each Guest */}
+          {guests.length > 0 && (
+            <div className="flex justify-between py-2">
+              <span className="text-[#6A6A6A]">Each Guest</span>
+              <span className="text-[#6A6A6A]">
                 {guests.length} x {guestCost} BDT
               </span>
             </div>
           )}
-          <div className="border-t border-gray-200 pt-3 mt-4">
-            <div className="flex justify-between">
-              <span className="font-semibold text-gray-800">Total Cost:</span>
-              <span className="font-bold text-[#007BFF]">{totalCost} BDT</span>
-            </div>
+
+          {/* Separator */}
+          <div className="border-t border-[#BFBFBF] my-3"></div>
+
+          {/* Total Cost */}
+          <div className="flex justify-between py-2">
+            <span className="font-bold text-[#1E293B]">Total Cost</span>
+            <span className="font-bold text-[#007BFF]">{totalCost} BDT</span>
           </div>
         </div>
       </div>

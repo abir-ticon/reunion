@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+import { useState } from "react";
+
 interface Guest {
   id: string;
   name: string;
@@ -17,6 +20,7 @@ export default function Step4Payment({
   onSubmit,
   guests,
 }: Step4PaymentProps) {
+  const [selectedPayment, setSelectedPayment] = useState("bkash");
   const participantCost = 200;
   const guestCost = 150;
   const totalCost = participantCost + guests.length * guestCost;
@@ -48,16 +52,40 @@ export default function Step4Payment({
         </div>
       </div>
 
-      {/* Submit Button */}
-      <div className="text-center">
-        <button
-          type="button"
-          onClick={onSubmit}
-          disabled={isSubmitting}
-          className="w-full bg-[#007BFF] text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? "Processing..." : "Complete Registration"}
-        </button>
+      {/* Payment Method */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Payment Method
+        </h3>
+
+        <div className="space-y-3">
+          {/* Bkash Radio Button */}
+          <label className="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+            <input
+              type="radio"
+              name="paymentMethod"
+              value="bkash"
+              checked={selectedPayment === "bkash"}
+              onChange={(e) => setSelectedPayment(e.target.value)}
+              className="mr-4 w-4 h-4 text-[#007BFF] focus:ring-[#007BFF]"
+            />
+            <div className="flex items-center space-x-3 flex-1">
+              <Image
+                src="/images/bkas-icon.png"
+                alt="Bkash"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
+              <div className="flex-1">
+                <span className="font-medium text-gray-900">Bkash</span>
+                <p className="text-sm text-gray-500">
+                  Pay securely with Bkash mobile banking
+                </p>
+              </div>
+            </div>
+          </label>
+        </div>
       </div>
     </div>
   );
