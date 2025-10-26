@@ -1,7 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+import Step1ParticipantInfo from "./registration/Step1ParticipantInfo";
+import Step2Guests from "./registration/Step2Guests";
+import Step3Summary from "./registration/Step3Summary";
+import Step4Payment from "./registration/Step4Payment";
 
 interface RegistrationModalProps {
   isOpen: boolean;
@@ -20,6 +23,7 @@ export default function RegistrationModal({
 }: RegistrationModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [participantData, setParticipantData] = useState({
     name: "",
@@ -35,10 +39,20 @@ export default function RegistrationModal({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setParticipantData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    // Only allow numbers for mobile field
+    if (name === "mobile") {
+      const numericValue = value.replace(/[^0-9]/g, "");
+      setParticipantData((prev) => ({
+        ...prev,
+        [name]: numericValue,
+      }));
+    } else {
+      setParticipantData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,9 +86,59 @@ export default function RegistrationModal({
     setGuests((prev) => prev.filter((guest) => guest.id !== id));
   };
 
+  const validateStep1 = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!participantData.name.trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!participantData.mobile.trim()) {
+      newErrors.mobile = "Mobile number is required";
+    } else if (!/^01[3-9]\d{8}$/.test(participantData.mobile)) {
+      newErrors.mobile = "Please enter a valid Bangladesh mobile number";
+    }
+
+    if (!participantData.sscBatch) {
+      newErrors.sscBatch = "SSC batch is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateStep2 = () => {
+    // Check if any guest exists with empty name
+    if (guests.length > 0) {
+      const incompleteGuests = guests.filter((guest) => !guest.name.trim());
+
+      if (incompleteGuests.length > 0) {
+        setErrors({
+          guests: "Please fill in all guest names or remove empty guests",
+        });
+        return false;
+      }
+    }
+
+    setErrors({});
+    return true;
+  };
+
   const nextStep = () => {
+    // Validate before moving to next step
+    if (currentStep === 1) {
+      if (!validateStep1()) {
+        return;
+      }
+    } else if (currentStep === 2) {
+      if (!validateStep2()) {
+        return;
+      }
+    }
+
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
+      setErrors({}); // Clear errors when successfully moving forward
     }
   };
 
@@ -90,6 +154,42 @@ export default function RegistrationModal({
 
     // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Prepare submission data
+    const submissionData = {
+      participant: {
+        name: participantData.name,
+        mobile: participantData.mobile,
+        email: participantData.email,
+        sscBatch: participantData.sscBatch,
+        profileImage: participantData.profileImage
+          ? {
+              name: participantData.profileImage.name,
+              size: participantData.profileImage.size,
+              type: participantData.profileImage.type,
+            }
+          : null,
+      },
+      guests: guests,
+      totalCost:
+        200 +
+        guests.length * 150 +
+        " BDT (Participant: 200 BDT, Each Guest: 150 BDT)",
+    };
+
+    // Log all data to console
+    console.log("====================================");
+    console.log("REGISTRATION FORM DATA SUBMITTED:");
+    console.log("====================================");
+    console.log("\n📝 PARTICIPANT INFORMATION:");
+    console.log(participantData);
+    console.log("\n👥 GUEST INFORMATION:");
+    console.log(guests);
+    console.log("\n💰 COST BREAKDOWN:");
+    console.log(submissionData.totalCost);
+    console.log("\n✅ Complete Submission Data:");
+    console.log(JSON.stringify(submissionData, null, 2));
+    console.log("====================================");
 
     // Reset form and close modal
     setParticipantData({
@@ -114,444 +214,49 @@ export default function RegistrationModal({
     }
   };
 
-  const renderStep1 = () => (
-    <div className="space-y-6">
-      <div>
-        <label
-          htmlFor="name"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Name *
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={participantData.name}
-          onChange={handleParticipantInputChange}
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
-          style={{ color: "#6A6A6A" }}
-          placeholder="Enter your full name"
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="mobile"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Mobile Number *
-        </label>
-        <input
-          type="tel"
-          id="mobile"
-          name="mobile"
-          value={participantData.mobile}
-          onChange={handleParticipantInputChange}
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
-          style={{ color: "#6A6A6A" }}
-          placeholder="+88 01X XXXX XXXX"
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Email (optional)
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={participantData.email}
-          onChange={handleParticipantInputChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
-          style={{ color: "#6A6A6A" }}
-          placeholder="example@email.com"
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="sscBatch"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          SSC Batch *
-        </label>
-        <select
-          id="sscBatch"
-          name="sscBatch"
-          value={participantData.sscBatch}
-          onChange={handleParticipantInputChange}
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
-          style={{ color: "#6A6A6A" }}
-        >
-          <option value="" disabled>
-            1980 - 2025
-          </option>
-          {Array.from({ length: 45 }, (_, i) => {
-            const year = new Date().getFullYear() - i;
-            return (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Profile Image
-        </label>
-        <div
-          className="border border-gray-300 rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors"
-          onClick={() => document.getElementById("profileImage")?.click()}
-        >
-          <input
-            type="file"
-            id="profileImage"
-            onChange={handleImageUpload}
-
-            accept="image/*"
-            className="hidden"
-          />
-          <div className="flex items-center space-x-3">
-            <div className="flex items-center text-[#94A3B8] space-x-2 border border-gray-300 rounded-lg px-2 py-1">
-              <Image src="/images/upload-icon.svg" alt="Upload Image" width={16} height={16} />
-              <span className="text-sm">Upload image</span>
-            </div>
-            <div className="flex-1">
-              <p className="text-gray-500 text-sm">
-                {participantData.profileImage
-                  ? participantData.profileImage.name
-                  : "No File Chosen"}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderStep2 = () => (
-    <div className="space-y-6">
-      <button
-        type="button"
-        onClick={addGuest}
-        className="bg-[#007BFF] text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center space-x-2"
-      >
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          />
-        </svg>
-        <span>Add Guest</span>
-      </button>
-
-      {guests.map((guest) => (
-        <div key={guest.id} className="flex items-end space-x-4">
-          <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Name
-            </label>
-            <input
-              type="text"
-              value={guest.name}
-              onChange={(e) => updateGuest(guest.id, "name", e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
-              style={{ color: "#6A6A6A" }}
-              placeholder="Enter guest name"
-            />
-          </div>
-          <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Relationship
-            </label>
-            <select
-              value={guest.relationship}
-              onChange={(e) =>
-                updateGuest(guest.id, "relationship", e.target.value)
-              }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
-              style={{ color: "#6A6A6A" }}
-            >
-              <option value="Spouse">Spouse</option>
-              <option value="Child">Child</option>
-              <option value="Family">Family</option>
-              <option value="Friend">Friend</option>
-              <option value="Colleague">Colleague</option>
-            </select>
-          </div>
-          <button
-            type="button"
-            onClick={() => removeGuest(guest.id)}
-            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-          </button>
-        </div>
-      ))}
-
-      {guests.length === 0 && (
-        <div className="text-center py-8 text-gray-500">
-          <p>
-            No guests added yet. Click &quot;Add Guest&quot; to get started.
-          </p>
-        </div>
-      )}
-    </div>
-  );
-
-  const renderStep3 = () => {
-    const participantCost = 200;
-    const guestCost = 150;
-    const totalCost = participantCost + guests.length * guestCost;
-
-    return (
-      <div className="space-y-6">
-        {/* Participant Summary */}
-        <div
-          className="p-6"
-          style={{
-            borderRadius: "16px",
-            border: "1px solid #BFBFBF",
-            backgroundColor: "white",
-          }}
-        >
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="font-semibold text-gray-800 text-lg">
-              Participant Summary
-            </h3>
-            <button
-              onClick={() => setCurrentStep(1)}
-              className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                />
-              </svg>
-              <span>Edit Info</span>
-            </button>
-          </div>
-          <div className="flex items-start space-x-4">
-            <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center relative">
-              {participantData.profileImage ? (
-                <Image
-                  src={URL.createObjectURL(participantData.profileImage)}
-                  alt="Profile"
-                  width={80}
-                  height={80}
-                  className="w-20 h-20 rounded-full object-cover"
-                />
-              ) : (
-                <svg
-                  className="w-10 h-10 text-gray-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              )}
-              <button className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 text-[#007BFF] text-xs">
-                Change
-              </button>
-            </div>
-            <div className="flex-1 space-y-2">
-              <div>
-                <span className="text-gray-500 text-sm">Name</span>
-                <p className="font-medium text-gray-800">
-                  {participantData.name || "Name not provided"}
-                </p>
-              </div>
-              <div>
-                <span className="text-gray-500 text-sm">Mobile</span>
-                <p className="text-gray-800">
-                  {participantData.mobile || "Mobile not provided"}
-                </p>
-              </div>
-              <div>
-                <span className="text-gray-500 text-sm">Email</span>
-                <p className="text-gray-800">
-                  {participantData.email || "Email not provided"}
-                </p>
-              </div>
-              <div>
-                <span className="text-gray-500 text-sm">Batch</span>
-                <p className="text-gray-800">
-                  {participantData.sscBatch || "Not selected"}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Guest Summary */}
-        <div
-          className="p-6"
-          style={{
-            borderRadius: "16px",
-            border: "1px solid #BFBFBF",
-            backgroundColor: "white",
-          }}
-        >
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="font-semibold text-gray-800 text-lg">
-              Guest Summary
-            </h3>
-            <button
-              onClick={() => setCurrentStep(2)}
-              className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-              <span>Add Guest</span>
-            </button>
-          </div>
-          {guests.length > 0 ? (
-            <div className="space-y-3">
-              {guests.map((guest, index) => (
-                <div
-                  key={guest.id}
-                  className="flex items-center justify-between"
-                >
-                  <div>
-                    <span className="text-gray-500 text-sm">
-                      Guest {index + 1}
-                    </span>
-                    <p className="font-medium text-gray-800">
-                      {guest.name || "Guest name"}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500 text-sm">No guests added</p>
-          )}
-        </div>
-
-        {/* Cost Breakdown */}
-        <div
-          className="p-6"
-          style={{
-            borderRadius: "16px",
-            border: "1px solid #BFBFBF",
-            backgroundColor: "white",
-          }}
-        >
-          <h3 className="font-semibold text-gray-800 text-lg mb-6">
-            Cost Breakdown
-          </h3>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-gray-500">Participant:</span>
-              <span className="text-gray-800">{participantCost} BDT</span>
-            </div>
-            {guests.length > 0 && (
-              <div className="flex justify-between">
-                <span className="text-gray-500">Each Guest:</span>
-                <span className="text-gray-800">
-                  {guests.length} x {guestCost} BDT
-                </span>
-              </div>
-            )}
-            <div className="border-t border-gray-200 pt-3 mt-4">
-              <div className="flex justify-between">
-                <span className="font-semibold text-gray-800">Total Cost:</span>
-                <span className="font-bold text-[#007BFF]">
-                  {totalCost} BDT
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderStep4 = () => {
-    return (
-      <div className="space-y-6">
-        <div className="text-center">
-          <p className="text-gray-600 mb-6">
-            Complete your registration by clicking the button below.
-          </p>
-
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-            className="w-full bg-[#007BFF] text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? "Processing..." : "Complete Registration"}
-          </button>
-        </div>
-      </div>
-    );
-  };
-
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return renderStep1();
+        return (
+          <Step1ParticipantInfo
+            participantData={participantData}
+            onInputChange={handleParticipantInputChange}
+            onImageUpload={handleImageUpload}
+            errors={errors}
+          />
+        );
       case 2:
-        return renderStep2();
+        return (
+          <Step2Guests
+            guests={guests}
+            onAddGuest={addGuest}
+            onUpdateGuest={updateGuest}
+            onRemoveGuest={removeGuest}
+            errors={errors}
+          />
+        );
       case 3:
-        return renderStep3();
+        return (
+          <Step3Summary
+            participantData={participantData}
+            guests={guests}
+            onEditParticipant={() => setCurrentStep(1)}
+            onEditGuests={() => setCurrentStep(2)}
+          />
+        );
       case 4:
-        return renderStep4();
+        return (
+          <Step4Payment isSubmitting={isSubmitting} onSubmit={handleSubmit} />
+        );
       default:
-        return renderStep1();
+        return (
+          <Step1ParticipantInfo
+            participantData={participantData}
+            onInputChange={handleParticipantInputChange}
+            onImageUpload={handleImageUpload}
+            errors={errors}
+          />
+        );
     }
   };
 
