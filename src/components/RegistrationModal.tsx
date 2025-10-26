@@ -108,16 +108,14 @@ export default function RegistrationModal({
   };
 
   const validateStep2 = () => {
-    // Check if any guest exists with empty name
-    if (guests.length > 0) {
-      const incompleteGuests = guests.filter((guest) => !guest.name.trim());
+    // Check if any guest exists with empty name (only validate if guests exist)
+    const incompleteGuests = guests.filter((guest) => !guest.name.trim());
 
-      if (incompleteGuests.length > 0) {
-        setErrors({
-          guests: "Please fill in all guest names or remove empty guests",
-        });
-        return false;
-      }
+    if (incompleteGuests.length > 0) {
+      setErrors({
+        guests: "Please fill in all guest names or remove empty guests",
+      });
+      return false;
     }
 
     setErrors({});
@@ -129,6 +127,15 @@ export default function RegistrationModal({
     if (currentStep === 1) {
       if (!validateStep1()) {
         return;
+      }
+      // Add default guest when moving to step 2
+      if (guests.length === 0) {
+        const newGuest: Guest = {
+          id: Date.now().toString(),
+          name: "",
+          relationship: "Family",
+        };
+        setGuests([newGuest]);
       }
     } else if (currentStep === 2) {
       if (!validateStep2()) {
@@ -144,7 +151,17 @@ export default function RegistrationModal({
 
   const prevStep = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      const newStep = currentStep - 1;
+      setCurrentStep(newStep);
+      // Add default guest when going back to step 2 if no guests exist
+      if (newStep === 2 && guests.length === 0) {
+        const newGuest: Guest = {
+          id: Date.now().toString(),
+          name: "",
+          relationship: "Family",
+        };
+        setGuests([newGuest]);
+      }
     }
   };
 
