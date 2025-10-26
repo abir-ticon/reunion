@@ -293,18 +293,20 @@ export default function RegistrationModal({
           <p className="text-xl text-[#007BFF] font-medium">
             Step {currentStep} of 4
           </p>
-          <h2 className="text-3xl font-bold text-[#1E293B]">{getStepTitle()}</h2>
+          <h2 className="text-3xl font-bold text-[#1E293B]">
+            {getStepTitle()}
+          </h2>
         </div>
 
         {/* Modal Body */}
         <div className="mb-8">{renderStepContent()}</div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between">
+        <div className="flex gap-6">
           <button
             type="button"
             onClick={currentStep === 1 ? onClose : prevStep}
-            className="px-6 py-3 border border-[#007BFF] text-[#007BFF] rounded-lg font-medium hover:bg-blue-50 transition-colors"
+            className="flex-[40%] px-6 py-3 border border-[#007BFF] text-[#007BFF] rounded-lg font-medium hover:bg-blue-50 transition-colors"
           >
             Back
           </button>
@@ -313,7 +315,7 @@ export default function RegistrationModal({
             <button
               type="button"
               onClick={nextStep}
-              className="px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
               {currentStep === 3 ? "Proceed to Payment" : "Next"}
             </button>
@@ -322,7 +324,7 @@ export default function RegistrationModal({
               type="button"
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Processing..." : "Complete Registration"}
             </button>
