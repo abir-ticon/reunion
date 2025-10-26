@@ -51,7 +51,7 @@ export default function Step2Guests({
       {guests.map((guest) => (
         <div key={guest.id} className="flex items-end space-x-4">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
               Name
             </label>
             <input
@@ -64,23 +64,33 @@ export default function Step2Guests({
             />
           </div>
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
               Relationship
             </label>
-            <select
-              value={guest.relationship}
-              onChange={(e) =>
-                onUpdateGuest(guest.id, "relationship", e.target.value)
-              }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
-              style={{ color: "#6A6A6A" }}
-            >
-              <option value="Spouse">Spouse</option>
-              <option value="Child">Child</option>
-              <option value="Family">Family</option>
-              <option value="Friend">Friend</option>
-              <option value="Colleague">Colleague</option>
-            </select>
+            <div className="relative">
+              <select
+                value={guest.relationship}
+                onChange={(e) =>
+                  onUpdateGuest(guest.id, "relationship", e.target.value)
+                }
+                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors appearance-none"
+                style={{ color: "#6A6A6A" }}
+              >
+                <option value="Spouse">Spouse</option>
+                <option value="Child">Child</option>
+                <option value="Family">Family</option>
+                <option value="Friend">Friend</option>
+                <option value="Colleague">Colleague</option>
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <img
+                  src="/images/dropdown-arrow.svg"
+                  alt="Dropdown"
+                  width={24}
+                  height={24}
+                />
+              </div>
+            </div>
           </div>
           <button
             type="button"

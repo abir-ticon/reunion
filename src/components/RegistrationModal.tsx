@@ -246,7 +246,11 @@ export default function RegistrationModal({
         );
       case 4:
         return (
-          <Step4Payment isSubmitting={isSubmitting} onSubmit={handleSubmit} />
+          <Step4Payment
+            isSubmitting={isSubmitting}
+            onSubmit={handleSubmit}
+            guests={guests}
+          />
         );
       default:
         return (
@@ -267,7 +271,7 @@ export default function RegistrationModal({
       case 1:
         return "Participant Information";
       case 2:
-        return "Add Your Guests";
+        return "Add Your Guests (Optional)";
       case 3:
         return "Summary & Review";
       case 4:

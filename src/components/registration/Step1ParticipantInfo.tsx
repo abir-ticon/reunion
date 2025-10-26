@@ -28,7 +28,7 @@ export default function Step1ParticipantInfo({
       <div>
         <label
           htmlFor="name"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
           Name *
         </label>
@@ -55,7 +55,7 @@ export default function Step1ParticipantInfo({
       <div>
         <label
           htmlFor="mobile"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
           Mobile Number *
         </label>
@@ -83,7 +83,7 @@ export default function Step1ParticipantInfo({
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
           Email (optional)
         </label>
@@ -102,42 +102,52 @@ export default function Step1ParticipantInfo({
       <div>
         <label
           htmlFor="sscBatch"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
           SSC Batch *
         </label>
-        <select
-          id="sscBatch"
-          name="sscBatch"
-          value={participantData.sscBatch}
-          onChange={onInputChange}
-          required
-          className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors ${
-            errors.sscBatch
-              ? "border-red-500 focus:border-red-500"
-              : "border-gray-300 focus:border-[#007BFF]"
-          }`}
-          style={{ color: "#6A6A6A" }}
-        >
-          <option value="" disabled>
-            1980 - 2025
-          </option>
-          {Array.from({ length: 45 }, (_, i) => {
-            const year = new Date().getFullYear() - i;
-            return (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            );
-          })}
-        </select>
+        <div className="relative">
+          <select
+            id="sscBatch"
+            name="sscBatch"
+            value={participantData.sscBatch}
+            onChange={onInputChange}
+            required
+            className={`w-full px-4 py-3 pr-12 border rounded-lg focus:outline-none transition-colors appearance-none ${
+              errors.sscBatch
+                ? "border-red-500 focus:border-red-500"
+                : "border-gray-300 focus:border-[#007BFF]"
+            }`}
+            style={{ color: "#6A6A6A" }}
+          >
+            <option value="" disabled>
+              1980 - 2025
+            </option>
+            {Array.from({ length: 45 }, (_, i) => {
+              const year = new Date().getFullYear() - i;
+              return (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              );
+            })}
+          </select>
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <Image
+              src="/images/dropdown-arrow.svg"
+              alt="Dropdown"
+              width={24}
+              height={24}
+            />
+          </div>
+        </div>
         {errors.sscBatch && (
           <p className="mt-1 text-sm text-red-500">{errors.sscBatch}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
           Profile Image
         </label>
         <div
