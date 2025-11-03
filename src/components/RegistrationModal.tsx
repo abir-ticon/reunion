@@ -3,6 +3,7 @@
 import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
 import { useState } from "react";
 import type { ParsedCountry } from "react-international-phone";
+import { generateRegistrationPDF } from "@/utils/generatePDF";
 import Step1ParticipantInfo from "./registration/Step1ParticipantInfo";
 import Step2Guests from "./registration/Step2Guests";
 import Step3Summary from "./registration/Step3Summary";
@@ -194,24 +195,37 @@ export default function RegistrationModal({
         sscBatch: participantData.sscBatch,
         profileImage: participantData.profileImage
           ? {
-              name: participantData.profileImage.name,
-              size: participantData.profileImage.size,
-              type: participantData.profileImage.type,
-            }
+            name: participantData.profileImage.name,
+            size: participantData.profileImage.size,
+            type: participantData.profileImage.type,
+          }
           : null,
       },
       guests: guests,
       totalCost:
-        200 +
-        guests.length * 150 +
-        " টাকা (অংশগ্রহণকারী: ২০০ টাকা, প্রতিটি অতিথি: ১৫০ টাকা)",
+        510 +
+        guests.length * 510 +
+        " টাকা (অংশগ্রহণকারী: ৫১০ টাকা, প্রতিটি অতিথি: ৫১০ টাকা)",
     };
-
-    // Log all data to console
 
     console.log(JSON.stringify(submissionData, null, 2));
 
-    // Reset form and close modal
+    try {
+      await generateRegistrationPDF({
+        participant: {
+          name: participantData.name,
+          mobile: participantData.mobile,
+          email: participantData.email,
+          sscBatch: participantData.sscBatch,
+          countryCode: participantData.countryCode,
+        },
+        guests: guests,
+        totalCost: 510 + guests.length * 510,
+      });
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
+
     setParticipantData({
       name: "",
       mobile: "",
@@ -346,8 +360,8 @@ export default function RegistrationModal({
               {currentStep === 3
                 ? "পেমেন্টে যান"
                 : currentStep === 2 && guests.length === 0
-                ? "এড়িয়ে যান"
-                : "পরবর্তী"}
+                  ? "এড়িয়ে যান"
+                  : "পরবর্তী"}
             </button>
           ) : (
             <button

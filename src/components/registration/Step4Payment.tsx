@@ -21,8 +21,8 @@ export default function Step4Payment({
   guests,
 }: Step4PaymentProps) {
   const [selectedPayment, setSelectedPayment] = useState("bkash");
-  const participantCost = 200;
-  const guestCost = 150;
+  const participantCost = 510;
+  const guestCost = 510;
   const totalCost = participantCost + guests.length * guestCost;
 
   return (

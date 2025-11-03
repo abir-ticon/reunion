@@ -105,7 +105,6 @@ export default function Step2Guests({
                     <option value="Child">সন্তান</option>
                     <option value="Family">পরিবার</option>
                     <option value="Friend">বন্ধু</option>
-                    <option value="Colleague">সহকর্মী</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <Image

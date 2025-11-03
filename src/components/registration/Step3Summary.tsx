@@ -30,8 +30,8 @@ export default function Step3Summary({
   onEditGuests,
   onImageUpload,
 }: Step3SummaryProps) {
-  const participantCost = 200;
-  const guestCost = 150;
+  const participantCost = 510;
+  const guestCost = 510;
   const totalCost = participantCost + guests.length * guestCost;
 
   return (
