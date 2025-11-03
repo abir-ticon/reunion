@@ -328,13 +328,12 @@ export default function RegistrationModal({
   return (
     <>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
-        style={{ backgroundColor: "#EFEFEF" }}
+        className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm" style={{ backgroundImage: "url('/images/hero-bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}
         onClick={handleBackdropClick}
       >
-        <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 md:px-[154px] py-8 md:py-[64px]">
+        <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 md:px-[154px] py-8 md:py-[44px]">
           {/* Modal Header */}
-          <div className="mb-8">
+          <div className="mb-6">
             <h2 className="md:text-3xl text-xl font-bold text-[#1E293B] flex items-center justify-between sm:flex-row flex-col">
               {getStepTitle()}
               <p className="text-xl text-[#007BFF] font-medium">
@@ -344,7 +343,7 @@ export default function RegistrationModal({
           </div>
 
           {/* Modal Body */}
-          <div className="mb-8">{renderStepContent()}</div>
+          <div className="mb-6">{renderStepContent()}</div>
 
           {/* Navigation Buttons */}
           <div className="flex gap-6 sm:flex-row flex-col">

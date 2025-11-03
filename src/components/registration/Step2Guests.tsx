@@ -44,7 +44,7 @@ export default function Step2Guests({
       </button>
 
       {guests.length === 0 ? (
-        <div className="text-center py-8 bg-gray-50 rounded-lg border border-gray-200">
+        <div className="text-center py-8 px-8 bg-gray-50 rounded-lg border border-gray-200">
           <div className="mb-4">
             <svg
               className="mx-auto h-12 w-12 text-gray-400"

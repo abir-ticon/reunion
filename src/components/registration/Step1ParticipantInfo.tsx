@@ -35,7 +35,7 @@ export default function Step1ParticipantInfo({
   errors,
 }: Step1ParticipantInfoProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div>
         <label
           htmlFor="name"

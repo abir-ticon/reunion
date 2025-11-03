@@ -1,10 +1,10 @@
 "use client";
 
-import { useModal } from "@/contexts/ModalContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function HeroBanner() {
-  const { openModal } = useModal();
+  const router = useRouter();
 
   return (
     <section
@@ -28,7 +28,7 @@ export default function HeroBanner() {
 
           {/* CTA Button */}
           <button
-            onClick={openModal}
+            onClick={() => router.push("/registration-info")}
             className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
           >
             <span>নিবন্ধন করুন</span>

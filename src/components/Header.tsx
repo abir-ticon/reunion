@@ -1,12 +1,12 @@
 "use client";
 
-import { useModal } from "@/contexts/ModalContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { openModal } = useModal();
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   const handleRegisterClick = () => {
-    openModal();
+    router.push("/registration-info");
     setIsMenuOpen(false);
   };
 
