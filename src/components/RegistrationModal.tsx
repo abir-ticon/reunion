@@ -419,7 +419,7 @@ export default function RegistrationModal({
         }}
         onClick={handleBackdropClick}
       >
-        <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 md:px-[154px] py-8 md:py-[44px]">
+        <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 lg:px-[154px] py-8 md:py-[44px]">
           {/* Modal Header */}
           <div className="mb-6">
             <h2 className="md:text-3xl text-xl font-bold text-[#1E293B] flex items-center justify-between sm:flex-row flex-col">

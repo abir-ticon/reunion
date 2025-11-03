@@ -116,7 +116,7 @@ export default function Step3Summary({
           </div>
 
           {/* Details Section */}
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-3 w-full md:w-auto">
             <div>
               <div className="flex items-start justify-between">
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
