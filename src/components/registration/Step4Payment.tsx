@@ -29,24 +29,24 @@ export default function Step4Payment({
     <div className="space-y-6">
       {/* Recap Card */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Recap</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-6">সারসংক্ষেপ</h3>
 
         <div className="space-y-4">
           {/* Participants Row */}
           <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-            <span className="text-gray-600">Participants</span>
+            <span className="text-gray-600">অংশগ্রহণকারী</span>
             <span className="text-gray-900 font-medium">1</span>
           </div>
 
           {/* Guests Row */}
           <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-            <span className="text-gray-600">Guests</span>
+            <span className="text-gray-600">অতিথি</span>
             <span className="text-gray-900 font-medium">{guests.length}</span>
           </div>
 
           {/* Total Row */}
           <div className="flex justify-between items-center pt-2">
-            <span className="text-gray-900 font-bold">Total</span>
+            <span className="text-gray-900 font-bold">মোট</span>
             <span className="text-gray-900 font-bold">{totalCost} BDT</span>
           </div>
         </div>
@@ -55,7 +55,7 @@ export default function Step4Payment({
       {/* Payment Method */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Payment Method
+          পেমেন্ট পদ্ধতি
         </h3>
 
         <div className="space-y-3">
@@ -80,7 +80,7 @@ export default function Step4Payment({
               <div className="flex-1">
                 <span className="font-medium text-gray-900">Bkash</span>
                 <p className="text-sm text-gray-500">
-                  Pay securely with Bkash mobile banking
+                  বিকাশ মোবাইল ব্যাংকিংয়ের মাধ্যমে নিরাপদে পেমেন্ট করুন
                 </p>
               </div>
             </div>

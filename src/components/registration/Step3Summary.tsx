@@ -47,7 +47,7 @@ export default function Step3Summary({
       >
         <div className="flex justify-between items-center mb-6">
           <h3 className="font-semibold text-[#1E293B] text-lg">
-            Participant Summary
+            অংশগ্রহণকারীর সারাংশ
           </h3>
           <button
             onClick={onEditParticipant}
@@ -66,7 +66,7 @@ export default function Step3Summary({
                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
               />
             </svg>
-            <span>Edit Info</span>
+            <span>তথ্য সম্পাদনা করুন</span>
           </button>
         </div>
         <div className="flex items-start space-x-6 md:gap-[60px] gap-4 md:flex-row flex-col">
@@ -76,7 +76,7 @@ export default function Step3Summary({
               {participantData.profileImage ? (
                 <Image
                   src={URL.createObjectURL(participantData.profileImage)}
-                  alt="Profile"
+                  alt="প্রোফাইল"
                   width={80}
                   height={80}
                   className="w-20 h-20 rounded-full object-cover"
@@ -109,7 +109,7 @@ export default function Step3Summary({
                 }
                 className="text-[#007BFF] text-xs font-medium hover:underline cursor-pointer"
               >
-                Change
+                পরিবর্তন করুন
               </button>
             </div>
           </div>
@@ -119,40 +119,40 @@ export default function Step3Summary({
             <div>
               <div className="flex items-start justify-between">
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
-                  Name
+                  নাম
                 </span>
                 <p className="text-[#1E293B]">
-                  {participantData.name || "Name not provided"}
+                  {participantData.name || "নাম প্রদান করা হয়নি"}
                 </p>
               </div>
             </div>
             <div>
               <div className="flex items-start justify-between">
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
-                  Mobile
+                  মোবাইল
                 </span>
                 <p className="text-[#1E293B]">
-                  {participantData.mobile || "Mobile not provided"}
+                  {participantData.mobile || "মোবাইল প্রদান করা হয়নি"}
                 </p>
               </div>
             </div>
             <div>
               <div className="flex items-start justify-between">
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
-                  Email
+                  ইমেইল
                 </span>
                 <p className="text-[#1E293B]">
-                  {participantData.email || "Email not provided"}
+                  {participantData.email || "ইমেইল প্রদান করা হয়নি"}
                 </p>
               </div>
             </div>
             <div>
               <div className="flex items-start justify-between">
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
-                  Batch
+                  ব্যাচ
                 </span>
                 <p className="text-[#1E293B]">
-                  {participantData.sscBatch || "Not selected"}
+                  {participantData.sscBatch || "নির্বাচন করা হয়নি"}
                 </p>
               </div>
             </div>
@@ -171,7 +171,7 @@ export default function Step3Summary({
       >
         <div className="flex justify-between items-center mb-6">
           <h3 className="font-semibold text-[#1E293B] text-lg">
-            Guest Summary
+            অতিথির সারাংশ
           </h3>
           <button
             onClick={onEditGuests}
@@ -190,7 +190,7 @@ export default function Step3Summary({
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
-            <span>Add Guest</span>
+            <span>অতিথি যোগ করুন</span>
           </button>
         </div>
         {guests.length > 0 ? (
@@ -202,15 +202,15 @@ export default function Step3Summary({
                 )}
                 <div className="flex items-center justify-between py-1">
                   <span className="text-[#6A6A6A] text-sm font-medium">
-                    Guest {index + 1}
+                    অতিথি {index + 1}
                   </span>
-                  <p className="text-[#6A6A6A]">{guest.name || "Guest name"}</p>
+                  <p className="text-[#6A6A6A]">{guest.name || "অতিথির নাম"}</p>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-[#6A6A6A] text-sm">No guests added</p>
+          <p className="text-[#6A6A6A] text-sm">কোন অতিথি যোগ করা হয়নি</p>
         )}
       </div>
 
@@ -224,12 +224,12 @@ export default function Step3Summary({
         }}
       >
         <h3 className="font-semibold text-[#1E293B] text-lg mb-6">
-          Cost Breakdown
+          খরচের বিশ্লেষণ
         </h3>
         <div className="space-y-0">
           {/* Participant */}
           <div className="flex justify-between py-2">
-            <span className="text-[#6A6A6A]">Participant</span>
+            <span className="text-[#6A6A6A]">অংশগ্রহণকারী</span>
             <span className="text-[#6A6A6A]">{participantCost} BDT</span>
           </div>
 
@@ -241,7 +241,7 @@ export default function Step3Summary({
           {/* Each Guest */}
           {guests.length > 0 && (
             <div className="flex justify-between py-2">
-              <span className="text-[#6A6A6A]">Each Guest</span>
+              <span className="text-[#6A6A6A]">প্রতিটি অতিথি</span>
               <span className="text-[#6A6A6A]">
                 {guests.length} x {guestCost} BDT
               </span>
@@ -253,7 +253,7 @@ export default function Step3Summary({
 
           {/* Total Cost */}
           <div className="flex justify-between py-2">
-            <span className="font-bold text-[#1E293B]">Total Cost</span>
+            <span className="font-bold text-[#1E293B]">মোট খরচ</span>
             <span className="font-bold text-[#007BFF]">{totalCost} BDT</span>
           </div>
         </div>

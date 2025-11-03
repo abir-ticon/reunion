@@ -89,9 +89,11 @@ export default function Step1ParticipantInfo({
                 ? "border-red-500 focus:border-red-500"
                 : "border-gray-300 focus:border-[#007BFF]"
             }`}
+            inputStyle={{ height: "50px" }}
             countrySelectorStyleProps={{
               buttonClassName:
-                "px-3 py-3 w-16  border border-gray-300 rounded-l-lg focus:outline-none transition-colors hover:border-[#007BFF]",
+                "px-3 py-3 w-16 border border-gray-300 rounded-l-lg focus:outline-none transition-colors hover:border-[#007BFF]",
+              buttonStyle: { height: "50px" },
             }}
           />
         </div>

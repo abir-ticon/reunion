@@ -112,12 +112,9 @@ export default function RegistrationModal({
     if (!participantData.mobile.trim()) {
       newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
     } else {
-      // Use library's built-in validation
+      // Validate phone number using libphonenumber-js
       if (!isValidPhoneNumber(participantData.mobile)) {
-        newErrors.mobile =
-          participantData.countryCode === "+880"
-            ? "দয়া করে একটি বাংলাদেশের মোবাইল নম্বর লিখুন"
-            : "দয়া করে একটি বৈধ মোবাইল নম্বর লিখুন";
+        newErrors.mobile = "দয়া করে একটি বৈধ মোবাইল নম্বর লিখুন";
       }
     }
 
@@ -141,7 +138,8 @@ export default function RegistrationModal({
 
     if (incompleteGuests.length > 0) {
       setErrors({
-        guests: "Please fill in all guest names or remove empty guests",
+        guests:
+          "অনুগ্রহ করে সকল অতিথির নাম পূরণ করুন অথবা খালি অতিথিদের নাম সরিয়ে দিন।",
       });
       return false;
     }
@@ -202,7 +200,7 @@ export default function RegistrationModal({
       totalCost:
         200 +
         guests.length * 150 +
-        " BDT (Participant: 200 BDT, Each Guest: 150 BDT)",
+        " টাকা (অংশগ্রহণকারী: ২০০ টাকা, প্রতিটি অতিথি: ১৫০ টাকা)",
     };
 
     // Log all data to console
@@ -224,7 +222,9 @@ export default function RegistrationModal({
     onClose();
 
     // Show success message
-    alert("Registration submitted successfully! We'll contact you soon.");
+    alert(
+      "নিবন্ধন সফলভাবে জমা দেওয়া হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।"
+    );
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -293,11 +293,11 @@ export default function RegistrationModal({
       case 1:
         return "অংশগ্রহণকারীর তথ্য";
       case 2:
-        return "Add Your Guests (Optional)";
+        return "আপনার অতিথিদের যোগ করুন (ঐচ্ছিক)";
       case 3:
-        return "Summary & Review";
+        return "সারাংশ ও পর্যালোচনা";
       case 4:
-        return "Payment Checkout";
+        return "পেমেন্ট সম্পন্ন করুন";
       default:
         return "অংশগ্রহণকারীর তথ্য";
     }
@@ -313,7 +313,7 @@ export default function RegistrationModal({
         {/* Modal Header */}
         <div className="mb-8">
           <p className="text-xl text-[#007BFF] font-medium">
-            Step {currentStep} of 4
+            ধাপ {currentStep} এর 4
           </p>
           <h2 className="md:text-3xl text-xl font-bold text-[#1E293B]">
             {getStepTitle()}
@@ -330,7 +330,7 @@ export default function RegistrationModal({
             onClick={currentStep === 1 ? onClose : prevStep}
             className="flex-[40%] px-6 py-3 border border-[#007BFF] text-[#007BFF] rounded-lg font-medium hover:bg-blue-50 transition-colors"
           >
-            Back
+            পিছনে
           </button>
 
           {currentStep < 4 ? (
@@ -340,10 +340,10 @@ export default function RegistrationModal({
               className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
               {currentStep === 3
-                ? "Proceed to Payment"
+                ? "পেমেন্টে যান"
                 : currentStep === 2 && guests.length === 0
-                ? "Skip"
-                : "Next"}
+                ? "এড়িয়ে যান"
+                : "পরবর্তী"}
             </button>
           ) : (
             <button
@@ -352,7 +352,7 @@ export default function RegistrationModal({
               disabled={isSubmitting}
               className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Processing..." : "Complete Registration"}
+              {isSubmitting ? "প্রক্রিয়াকরণ হচ্ছে..." : "নিবন্ধন সম্পন্ন করুন"}
             </button>
           )}
         </div>

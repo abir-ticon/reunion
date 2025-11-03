@@ -36,11 +36,11 @@ export default function Step2Guests({
       >
         <Image
           src="/images/plus-sign.svg"
-          alt="Add Guest"
+          alt="অতিথি যোগ করুন"
           width={16}
           height={16}
         />
-        <span className="text-[16px]">Add Guest</span>
+        <span className="text-[16px]">অতিথি যোগ করুন</span>
       </button>
 
       {guests.length === 0 ? (
@@ -60,10 +60,10 @@ export default function Step2Guests({
               />
             </svg>
           </div>
-          <p className="text-gray-600 mb-2">No guests added yet</p>
+          <p className="text-gray-600 mb-2">এখনও কোনও অতিথি যোগ করা হয়নি।</p>
           <p className="text-sm text-gray-500">
-            Click the &quot;Add Guest&quot; button above to invite someone to
-            join you
+            আপনার সাথে যোগদানের জন্য কাউকে আমন্ত্রণ জানাতে উপরের &quot;অতিথি যোগ
+            করুন&quot; বোতামে ক্লিক করুন।
           </p>
         </div>
       ) : (
@@ -74,7 +74,7 @@ export default function Step2Guests({
           >
             <div className="md:flex-1 flex-auto w-full">
               <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
-                Name
+                নাম
               </label>
               <input
                 type="text"
@@ -84,13 +84,13 @@ export default function Step2Guests({
                 }
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors"
                 style={{ color: "#6A6A6A" }}
-                placeholder="Enter guest name"
+                placeholder="অতিথির নাম লিখুন"
               />
             </div>
             <div className="md:flex-1 flex-auto flex gap-2 w-full items-end">
               <div className="w-full">
                 <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
-                  Relationship
+                  সম্পর্ক
                 </label>
                 <div className="relative">
                   <select
@@ -101,11 +101,11 @@ export default function Step2Guests({
                     className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors appearance-none"
                     style={{ color: "#6A6A6A" }}
                   >
-                    <option value="Spouse">Spouse</option>
-                    <option value="Child">Child</option>
-                    <option value="Family">Family</option>
-                    <option value="Friend">Friend</option>
-                    <option value="Colleague">Colleague</option>
+                    <option value="Spouse">স্বামী/স্ত্রী</option>
+                    <option value="Child">সন্তান</option>
+                    <option value="Family">পরিবার</option>
+                    <option value="Friend">বন্ধু</option>
+                    <option value="Colleague">সহকর্মী</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <Image
@@ -124,7 +124,7 @@ export default function Step2Guests({
               >
                 <Image
                   src="/images/delete-icon.svg"
-                  alt="Remove Guest"
+                  alt="অতিথি সরান"
                   width={40}
                   height={40}
                 />
