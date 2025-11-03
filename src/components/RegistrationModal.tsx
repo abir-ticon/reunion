@@ -115,7 +115,11 @@ export default function RegistrationModal({
       newErrors.name = "নাম প্রয়োজন";
     }
 
-    if (!participantData.mobile.trim()) {
+    // Validate mobile number - check if it's empty or only contains country code
+    const mobileValue = participantData.mobile.trim();
+    // Bangladesh numbers are typically +880XXXXXXXXX (11-13 chars total)
+    // Check if it's empty or just country code (less than 8 chars = only country code)
+    if (!mobileValue || mobileValue.length < 8) {
       newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
     }
 
