@@ -1,11 +1,11 @@
 "use client";
 
+import { useModal } from "@/contexts/ModalContext";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function HeroBanner() {
-  const router = useRouter();
+  const { openInfoModal } = useModal();
 
   return (
     <section
@@ -28,13 +28,20 @@ export default function HeroBanner() {
             আয়োজনে : ইব্রাহিমপুর ঈশ্বরচন্দ্র উচ্চবিদ্যালয় সম্মিলিত প্রাক্তন
             ছাত্র পরিষদ ।
             <br />
-            অনুষ্টানের স্থান ও তারিখ : <Link className="font-bold" href="https://maps.app.goo.gl/Ka9tdty4WoTF4hW86"
-            target="_blank">স্কুল প্রাঙ্গণ</Link>, ১৩ ই ডিসেম্বর, ২০২৫
+            অনুষ্টানের স্থান ও তারিখ :{" "}
+            <Link
+              className="font-bold"
+              href="https://maps.app.goo.gl/Ka9tdty4WoTF4hW86"
+              target="_blank"
+            >
+              স্কুল প্রাঙ্গণ
+            </Link>
+            , ১৩ ই ডিসেম্বর, ২০২৫
           </p>
           {/* CTA Button */}
           <button
             type="button"
-            onClick={() => router.push("/registration-info")}
+            onClick={openInfoModal}
             className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
           >
             <span>নিবন্ধন করুন</span>

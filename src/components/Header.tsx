@@ -1,12 +1,12 @@
 "use client";
 
+import { useModal } from "@/contexts/ModalContext";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const router = useRouter();
+  const { openInfoModal } = useModal();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   const handleRegisterClick = () => {
-    router.push("/registration-info");
+    openInfoModal();
     setIsMenuOpen(false);
   };
 
@@ -130,7 +130,7 @@ export default function Header() {
               className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer w-full"
               onClick={handleRegisterClick}
             >
-             নিবন্ধন করুন
+              নিবন্ধন করুন
             </button>
           </div>
         </div>

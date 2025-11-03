@@ -28,6 +28,9 @@ export default function RegistrationModal({
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDownloadingPDF, setIsDownloadingPDF] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [participantData, setParticipantData] = useState({
@@ -278,22 +281,36 @@ export default function RegistrationModal({
         setIsDownloadingPDF(false);
       }
 
-      // Reset form and close modal
-      setParticipantData({
-        name: "",
-        mobile: "",
-        email: "",
-        sscBatch: "",
-        profileImage: null,
-        countryCode: "+880",
-      });
-      setGuests([]);
-      setCurrentStep(1);
-      setIsSubmitting(false);
-      onClose();
+      // Show success popup
+      setShowSuccessPopup(true);
+
+      // Reset form and close modal after showing success
+      setTimeout(() => {
+        setParticipantData({
+          name: "",
+          mobile: "",
+          email: "",
+          sscBatch: "",
+          profileImage: null,
+          countryCode: "+880",
+        });
+        setGuests([]);
+        setCurrentStep(1);
+        setIsSubmitting(false);
+        setShowSuccessPopup(false);
+        onClose();
+      }, 2000);
     } catch (error) {
       console.error("Error submitting registration:", error);
       setIsSubmitting(false);
+
+      // Show error popup
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "নিবন্ধন জমা দেওয়ার সময় একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
+      );
+      setShowErrorPopup(true);
     }
   };
 
@@ -469,6 +486,81 @@ export default function RegistrationModal({
             <p className="text-lg font-semibold text-[#1E293B]">
               PDF ডাউনলোড হচ্ছে...
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center backdrop-blur-md"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+        >
+          <div className="bg-white rounded-2xl shadow-2xl px-12 py-8 flex flex-col items-center">
+            <div className="rounded-full h-12 w-12 bg-green-100 flex items-center justify-center mb-4">
+              <svg
+                className="w-6 h-6 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
+            <p className="text-lg font-semibold text-[#1E293B] text-center">
+              নিবন্ধন সফলভাবে জমা দেওয়া হয়েছে!
+            </p>
+            <p className="text-sm text-[#6A6A6A] mt-2 text-center">
+              আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Error Popup */}
+      {showErrorPopup && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center backdrop-blur-md"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          onClick={() => setShowErrorPopup(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl px-12 py-8 flex flex-col items-center max-w-md mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="rounded-full h-12 w-12 bg-red-100 flex items-center justify-center mb-4">
+              <svg
+                className="w-6 h-6 text-red-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+            <p className="text-lg font-semibold text-[#1E293B] text-center mb-2">
+              ত্রুটি
+            </p>
+            <p className="text-sm text-[#6A6A6A] text-center mb-6">
+              {errorMessage}
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowErrorPopup(false)}
+              className="px-6 py-2 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            >
+              ঠিক আছে
+            </button>
           </div>
         </div>
       )}
