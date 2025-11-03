@@ -38,6 +38,7 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             {/* School Logo - Clickable to scroll to top */}
             <button
+              type="button"
               onClick={scrollToTop}
               className="focus:outline-none rounded-lg cursor-pointer"
             >
@@ -60,12 +61,14 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-10">
             <button
+              type="button"
               onClick={scrollToContact}
               className="text-gray-700 hover:text-gray-900 font-medium transition-colors cursor-pointer"
             >
               যোগাযোগ করুন
             </button>
             <button
+              type="button"
               onClick={handleRegisterClick}
               className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer"
             >
@@ -75,6 +78,7 @@ export default function Header() {
 
           {/* Mobile Hamburger Menu Button */}
           <button
+            type="button"
             onClick={toggleMenu}
             className="md:hidden flex flex-col items-center justify-center w-8 h-8 space-y-1"
             aria-label="Toggle menu"
@@ -115,12 +119,14 @@ export default function Header() {
 
             {/* Mobile Navigation Links */}
             <button
+              type="button"
               onClick={scrollToContact}
               className="text-gray-700 hover:text-gray-900 font-medium transition-colors py-2 text-left cursor-pointer"
             >
               যোগাযোগ করুন
             </button>
             <button
+              type="button"
               className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer w-full"
               onClick={handleRegisterClick}
             >

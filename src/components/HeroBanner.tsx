@@ -28,6 +28,7 @@ export default function HeroBanner() {
 
           {/* CTA Button */}
           <button
+            type="button"
             onClick={() => router.push("/registration-info")}
             className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
           >

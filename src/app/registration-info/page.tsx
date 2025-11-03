@@ -101,12 +101,14 @@ function RegistrationInfoContent() {
         {/* Action Buttons */}
         <div className="flex gap-4 justify-center sm:flex-row flex-col">
         <button
+            type="button"
             onClick={handleNo}
             className="flex-1 sm:flex-none px-8 py-4 border-2 border-[#007BFF] text-[#007BFF] rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors cursor-pointer"
           >
             না, এখন নয়
           </button>
           <button
+            type="button"
             onClick={handleYes}
             className="flex-1 sm:flex-none px-8 py-4 bg-[#007BFF] text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg cursor-pointer"
           >
