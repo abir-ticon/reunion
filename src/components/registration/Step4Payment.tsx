@@ -53,13 +53,12 @@ export default function Step4Payment({
       </div>
 
       {/* Payment Method */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
           পেমেন্ট পদ্ধতি
         </h3>
 
-        <div className="space-y-3">
-          {/* Bkash Radio Button */}
+        <div className="space-y-3">          
           <label className="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
             <input
               type="radio"
@@ -86,7 +85,7 @@ export default function Step4Payment({
             </div>
           </label>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

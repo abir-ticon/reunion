@@ -190,7 +190,7 @@ export async function generateRegistrationPDF(data: PDFData): Promise<void> {
         }
 
         pdf.addImage(imgData, "PNG", 10, 10, finalWidth, finalHeight);
-        pdf.save("registration-confirmation.pdf");
+        pdf.save("reunion-registration-confirmation.pdf");
     } catch (error) {
         console.error("Error generating PDF:", error);
         throw error;

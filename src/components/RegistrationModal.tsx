@@ -239,10 +239,10 @@ export default function RegistrationModal({
     setIsSubmitting(false);
     onClose();
 
-    // Show success message
-    alert(
-      "নিবন্ধন সফলভাবে জমা দেওয়া হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।"
-    );
+    // // Show success message
+    // alert(
+    //   "নিবন্ধন সফলভাবে জমা দেওয়া হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।"
+    // );
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
