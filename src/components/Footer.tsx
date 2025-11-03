@@ -22,12 +22,13 @@ export default function Footer() {
 
           {/* Contact Information */}
           <div className="flex md:flex-row flex-col items-center justify-center gap-2 md:gap-4">
-            <a href="mailto:email@example.com" className="">
-              email@example.com
-            </a>
-            <a href="tel:01712323212">017 12 323 212</a>
-            <a href="tel:01512435323">015 12 435 323</a>
+            <a href="tel:017133167547">০১৭১৩৩১৬৭৫৪৭</a>
+            <a href="tel:01831987922">০১৮৩১৯৮৭৯২২</a>
           </div>
+          <p className="text-md text-[#000] leading-[26px]">
+            কারিগরি সহযোগিতায়ঃ 
+            <a href="https://ticonsys.com/" target="_blank" className="text-[#007BFF]">{" "}টিকন সিস্টেম লিমিটেড</a>
+          </p>
         </div>
       </div>
     </footer>
