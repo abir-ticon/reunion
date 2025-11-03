@@ -242,7 +242,7 @@ export default function Step3Summary({
           {/* Each Guest */}
           {guests.length > 0 && (
             <div className="flex justify-between py-2">
-              <span className="text-[#6A6A6A]">প্রতিটি অতিথি</span>
+              <span className="text-[#6A6A6A]">অতিথি</span>
               <span className="text-[#6A6A6A]">
                 {guests.length} x {guestCost} BDT
               </span>

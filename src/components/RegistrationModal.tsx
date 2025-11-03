@@ -437,7 +437,7 @@ export default function RegistrationModal({
                 className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
               >
                 {currentStep === 3
-                  ? "পেমেন্টে যান"
+                  ? "পরবর্তী"
                   : currentStep === 2 && guests.length === 0
                   ? "এড়িয়ে যান"
                   : "পরবর্তী"}
