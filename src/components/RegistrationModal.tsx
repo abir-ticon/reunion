@@ -26,6 +26,7 @@ export default function RegistrationModal({
 }: RegistrationModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDownloadingPDF, setIsDownloadingPDF] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [participantData, setParticipantData] = useState({
@@ -210,6 +211,7 @@ export default function RegistrationModal({
 
     console.log(JSON.stringify(submissionData, null, 2));
 
+    setIsDownloadingPDF(true);
     try {
       await generateRegistrationPDF({
         participant: {
@@ -224,6 +226,8 @@ export default function RegistrationModal({
       });
     } catch (error) {
       console.error("Error generating PDF:", error);
+    } finally {
+      setIsDownloadingPDF(false);
     }
 
     setParticipantData({
@@ -322,59 +326,74 @@ export default function RegistrationModal({
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
-      style={{ backgroundColor: "#EFEFEF" }}
-      onClick={handleBackdropClick}
-    >
-      <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 md:px-[154px] py-8 md:py-[64px]">
-        {/* Modal Header */}
-        <div className="mb-8">
-          <h2 className="md:text-3xl text-xl font-bold text-[#1E293B] flex items-center justify-between sm:flex-row flex-col">
-            {getStepTitle()}
-            <p className="text-xl text-[#007BFF] font-medium">
-              ধাপ {currentStep} এর 4
-            </p>
-          </h2>
-        </div>
+    <>
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+        style={{ backgroundColor: "#EFEFEF" }}
+        onClick={handleBackdropClick}
+      >
+        <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 md:px-[154px] py-8 md:py-[64px]">
+          {/* Modal Header */}
+          <div className="mb-8">
+            <h2 className="md:text-3xl text-xl font-bold text-[#1E293B] flex items-center justify-between sm:flex-row flex-col">
+              {getStepTitle()}
+              <p className="text-xl text-[#007BFF] font-medium">
+                ধাপ {currentStep} এর 4
+              </p>
+            </h2>
+          </div>
 
-        {/* Modal Body */}
-        <div className="mb-8">{renderStepContent()}</div>
+          {/* Modal Body */}
+          <div className="mb-8">{renderStepContent()}</div>
 
-        {/* Navigation Buttons */}
-        <div className="flex gap-6 sm:flex-row flex-col">
-          <button
-            type="button"
-            onClick={currentStep === 1 ? onClose : prevStep}
-            className="flex-[40%] px-6 py-3 border border-[#007BFF] text-[#007BFF] rounded-lg font-medium hover:bg-blue-50 transition-colors"
-          >
-            পিছনে
-          </button>
-
-          {currentStep < 4 ? (
+          {/* Navigation Buttons */}
+          <div className="flex gap-6 sm:flex-row flex-col">
             <button
               type="button"
-              onClick={nextStep}
-              className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              onClick={currentStep === 1 ? onClose : prevStep}
+              className="flex-[40%] px-6 py-3 border border-[#007BFF] text-[#007BFF] rounded-lg font-medium hover:bg-blue-50 transition-colors"
             >
-              {currentStep === 3
-                ? "পেমেন্টে যান"
-                : currentStep === 2 && guests.length === 0
-                  ? "এড়িয়ে যান"
-                  : "পরবর্তী"}
+              পিছনে
             </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? "প্রক্রিয়াকরণ হচ্ছে..." : "নিবন্ধন সম্পন্ন করুন"}
-            </button>
-          )}
+
+            {currentStep < 4 ? (
+              <button
+                type="button"
+                onClick={nextStep}
+                className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              >
+                {currentStep === 3
+                  ? "পেমেন্টে যান"
+                  : currentStep === 2 && guests.length === 0
+                    ? "এড়িয়ে যান"
+                    : "পরবর্তী"}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? "প্রক্রিয়াকরণ হচ্ছে..." : "নিবন্ধন সম্পন্ন করুন"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Downloading PDF Modal Overlay */}
+      {isDownloadingPDF && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center backdrop-blur-md"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+        >
+          <div className="bg-white rounded-2xl shadow-2xl px-12 py-8 flex flex-col items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#007BFF] mb-4"></div>
+            <p className="text-lg font-semibold text-[#1E293B]">PDF ডাউনলোড হচ্ছে...</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
