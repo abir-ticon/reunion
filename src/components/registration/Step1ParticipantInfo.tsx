@@ -143,7 +143,7 @@ export default function Step1ParticipantInfo({
             style={{ color: "#6A6A6A" }}
           >
             <option value="" disabled>
-              1980 - 2025
+              ব্যাচ নির্বাচন করুন
             </option>
             {Array.from({ length: 100 }, (_, i) => {
               const year = new Date().getFullYear() - i;
