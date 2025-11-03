@@ -45,7 +45,7 @@ export default function Step1ParticipantInfo({
               : "border-gray-300 focus:border-[#007BFF]"
           }`}
           style={{ color: "#6A6A6A" }}
-          placeholder="Enter your full name"
+          placeholder="আপনার পুরো নাম লিখুন"
         />
         {errors.name && (
           <p className="mt-1 text-sm text-red-500">{errors.name}</p>
@@ -73,7 +73,7 @@ export default function Step1ParticipantInfo({
               : "border-gray-300 focus:border-[#007BFF]"
           }`}
           style={{ color: "#6A6A6A" }}
-          placeholder="01XXXXXXXXX"
+          placeholder="০১XXXXXXXXX"
         />
         {errors.mobile && (
           <p className="mt-1 text-sm text-red-500">{errors.mobile}</p>
@@ -165,17 +165,17 @@ export default function Step1ParticipantInfo({
             <div className="flex items-center text-[#94A3B8] space-x-2 border border-gray-300 rounded-lg px-2 py-1">
               <Image
                 src="/images/upload-icon.svg"
-                alt="Upload Image"
+                alt="ছবি আপলোড করুন"
                 width={16}
                 height={16}
               />
-              <span className="text-sm">Upload image</span>
+              <span className="text-sm">ছবি আপলোড করুন</span>
             </div>
             <div className="flex-1">
               <p className="text-gray-500 text-sm">
                 {participantData.profileImage
                   ? participantData.profileImage.name
-                  : "No File Chosen"}
+                  : "কোনো ফাইল নির্বাচন করা হয়নি"}
               </p>
             </div>
           </div>

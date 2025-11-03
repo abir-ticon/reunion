@@ -90,17 +90,17 @@ export default function RegistrationModal({
     const newErrors: Record<string, string> = {};
 
     if (!participantData.name.trim()) {
-      newErrors.name = "Name is required";
+      newErrors.name = "নাম প্রয়োজন";
     }
 
     if (!participantData.mobile.trim()) {
-      newErrors.mobile = "Mobile number is required";
+      newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
     } else if (!/^01[3-9]\d{8}$/.test(participantData.mobile)) {
-      newErrors.mobile = "Please enter a valid Bangladesh mobile number";
+      newErrors.mobile = "দয়া করে একটি বাংলাদেশের মোবাইল নম্বর লিখুন";
     }
 
     if (!participantData.sscBatch) {
-      newErrors.sscBatch = "SSC batch is required";
+      newErrors.sscBatch = "এসএসসি ব্যাচ প্রয়োজন";
     }
 
     setErrors(newErrors);
