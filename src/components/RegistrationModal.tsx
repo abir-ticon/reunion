@@ -386,6 +386,28 @@ export default function RegistrationModal({
     }
   };
 
+  const getStepDisplay = () => {
+    const stepOrdinals: Record<number, string> = {
+      1: "প্রথম",
+      2: "দ্বিতীয়",
+      3: "তৃতীয়",
+      4: "চতুর্থ",
+    };
+
+    const bengaliNumerals: Record<number, string> = {
+      1: "১",
+      2: "২",
+      3: "৩",
+      4: "৪",
+    };
+
+    const ordinal = stepOrdinals[currentStep] || "প্রথম";
+    const currentBengali = bengaliNumerals[currentStep] || "১";
+    const totalBengali = "৪";
+
+    return `${ordinal} ধাপ ( ধাপ ${currentBengali} এর ${totalBengali} )`;
+  };
+
   return (
     <>
       <div
@@ -403,7 +425,7 @@ export default function RegistrationModal({
             <h2 className="md:text-3xl text-xl font-bold text-[#1E293B] flex items-center justify-between sm:flex-row flex-col">
               {getStepTitle()}
               <p className="text-xl text-[#007BFF] font-medium">
-                ধাপ {currentStep} এর 4
+                {getStepDisplay()}
               </p>
             </h2>
           </div>
