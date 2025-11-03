@@ -1,9 +1,10 @@
 "use client";
 
+import { calculateTotalCost } from "@/constants/pricing";
+import { generateRegistrationPDF } from "@/utils/generatePDF";
 import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
 import { useState } from "react";
 import type { ParsedCountry } from "react-international-phone";
-import { generateRegistrationPDF } from "@/utils/generatePDF";
 import Step1ParticipantInfo from "./registration/Step1ParticipantInfo";
 import Step2Guests from "./registration/Step2Guests";
 import Step3Summary from "./registration/Step3Summary";
@@ -183,70 +184,130 @@ export default function RegistrationModal({
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    // Prepare submission data
-    const submissionData = {
-      participant: {
-        name: participantData.name,
-        mobile: participantData.mobile, // Full phone number with country code
-        countryCode: participantData.countryCode,
-        email: participantData.email,
-        sscBatch: participantData.sscBatch,
-        profileImage: participantData.profileImage
-          ? {
-            name: participantData.profileImage.name,
-            size: participantData.profileImage.size,
-            type: participantData.profileImage.type,
-          }
-          : null,
-      },
-      guests: guests,
-      totalCost:
-        510 +
-        guests.length * 510 +
-        " টাকা (অংশগ্রহণকারী: ৫১০ টাকা, প্রতিটি অতিথি: ৫১০ টাকা)",
-    };
-
-    console.log(JSON.stringify(submissionData, null, 2));
-
-    setIsDownloadingPDF(true);
     try {
-      await generateRegistrationPDF({
-        participant: {
-          name: participantData.name,
-          mobile: participantData.mobile,
-          email: participantData.email,
-          sscBatch: participantData.sscBatch,
-          countryCode: participantData.countryCode,
-        },
-        guests: guests,
-        totalCost: 510 + guests.length * 510,
+      // Calculate total amount
+      const totalAmount = calculateTotalCost(guests.length);
+
+      // Format guests data (remove id field, keep only name and relationship)
+      const guestsData = guests.map((guest) => ({
+        name: guest.name,
+        relationship: guest.relationship,
+      }));
+
+      // Get CSRF token from cookies
+      const getCsrfToken = () => {
+        const cookies = document.cookie.split(";");
+        for (const cookie of cookies) {
+          const [name, value] = cookie.trim().split("=");
+          if (name === "csrftoken" || name === "csrf_token") {
+            return value;
+          }
+        }
+        return null;
+      };
+
+      const csrfToken = getCsrfToken();
+
+      // Create FormData
+      const formData = new FormData();
+      formData.append("name", participantData.name);
+      formData.append("mobile_number", participantData.mobile);
+      formData.append("email", participantData.email || "");
+      formData.append("ssc_batch", participantData.sscBatch);
+
+      // Append profile image if available
+      if (participantData.profileImage) {
+        formData.append("profile_image", participantData.profileImage);
+      } else {
+        formData.append("profile_image", "");
+      }
+
+      // Append guests as JSON string
+      formData.append("guests", JSON.stringify(guestsData));
+      formData.append("amount", totalAmount.toString());
+
+      // Prepare headers
+      const headers: HeadersInit = {
+        accept: "application/json",
+      };
+
+      // Add CSRF token to headers if available
+      if (csrfToken) {
+        headers["X-CSRFTOKEN"] = csrfToken;
+      }
+
+      // Get API URL from environment variable
+      const apiUrl =
+        process.env.NEXT_PUBLIC_CHECKOUT_API_URL ||
+        "https://isa100years.com/cms/api/checkout/";
+
+      // Make API call
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: headers,
+        body: formData,
+        credentials: "include", // Include cookies for CSRF token
       });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.message ||
+            `API request failed with status ${response.status}`
+        );
+      }
+
+      const result = await response.json();
+      console.log("Checkout API response:", result);
+
+      // Generate PDF after successful API call
+      setIsDownloadingPDF(true);
+      try {
+        await generateRegistrationPDF({
+          participant: {
+            name: participantData.name,
+            mobile: participantData.mobile,
+            email: participantData.email,
+            sscBatch: participantData.sscBatch,
+            countryCode: participantData.countryCode,
+          },
+          guests: guests,
+          totalCost: totalAmount,
+        });
+      } catch (error) {
+        console.error("Error generating PDF:", error);
+        // Don't throw here, API call was successful
+      } finally {
+        setIsDownloadingPDF(false);
+      }
+
+      // Reset form and close modal
+      setParticipantData({
+        name: "",
+        mobile: "",
+        email: "",
+        sscBatch: "",
+        profileImage: null,
+        countryCode: "+880",
+      });
+      setGuests([]);
+      setCurrentStep(1);
+      setIsSubmitting(false);
+      onClose();
+
+      // Show success message
+      alert(
+        "নিবন্ধন সফলভাবে জমা দেওয়া হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।"
+      );
     } catch (error) {
-      console.error("Error generating PDF:", error);
-    } finally {
-      setIsDownloadingPDF(false);
+      console.error("Error submitting registration:", error);
+      setIsSubmitting(false);
+      alert(
+        error instanceof Error
+          ? `ত্রুটি: ${error.message}`
+          : "নিবন্ধন জমা দেওয়ার সময় একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
+      );
     }
-
-    setParticipantData({
-      name: "",
-      mobile: "",
-      email: "",
-      sscBatch: "",
-      profileImage: null,
-      countryCode: "+880",
-    });
-    setGuests([]);
-    setCurrentStep(1);
-    setIsSubmitting(false);
-    onClose();
-
-    // // Show success message
-    // alert(
-    //   "নিবন্ধন সফলভাবে জমা দেওয়া হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।"
-    // );
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -328,7 +389,12 @@ export default function RegistrationModal({
   return (
     <>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm" style={{ backgroundImage: "url('/images/hero-bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}
+        className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+        style={{
+          backgroundImage: "url('/images/hero-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
         onClick={handleBackdropClick}
       >
         <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 md:px-[154px] py-8 md:py-[44px]">
@@ -364,8 +430,8 @@ export default function RegistrationModal({
                 {currentStep === 3
                   ? "পেমেন্টে যান"
                   : currentStep === 2 && guests.length === 0
-                    ? "এড়িয়ে যান"
-                    : "পরবর্তী"}
+                  ? "এড়িয়ে যান"
+                  : "পরবর্তী"}
               </button>
             ) : (
               <button
@@ -374,7 +440,9 @@ export default function RegistrationModal({
                 disabled={isSubmitting}
                 className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "প্রক্রিয়াকরণ হচ্ছে..." : "নিবন্ধন সম্পন্ন করুন"}
+                {isSubmitting
+                  ? "প্রক্রিয়াকরণ হচ্ছে..."
+                  : "নিবন্ধন সম্পন্ন করুন"}
               </button>
             )}
           </div>
@@ -389,7 +457,9 @@ export default function RegistrationModal({
         >
           <div className="bg-white rounded-2xl shadow-2xl px-12 py-8 flex flex-col items-center">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#007BFF] mb-4"></div>
-            <p className="text-lg font-semibold text-[#1E293B]">PDF ডাউনলোড হচ্ছে...</p>
+            <p className="text-lg font-semibold text-[#1E293B]">
+              PDF ডাউনলোড হচ্ছে...
+            </p>
           </div>
         </div>
       )}

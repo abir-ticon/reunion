@@ -1,5 +1,6 @@
 "use client";
 
+import { calculateTotalCost, GUEST_COST, PARTICIPANT_COST } from "@/constants/pricing";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -21,9 +22,9 @@ export default function Step4Payment({
   guests,
 }: Step4PaymentProps) {
   const [selectedPayment, setSelectedPayment] = useState("bkash");
-  const participantCost = 510;
-  const guestCost = 510;
-  const totalCost = participantCost + guests.length * guestCost;
+  const participantCost = PARTICIPANT_COST;
+  const guestCost = GUEST_COST;
+  const totalCost = calculateTotalCost(guests.length);
 
   return (
     <div className="space-y-6">

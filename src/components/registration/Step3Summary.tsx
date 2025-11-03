@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { calculateTotalCost, GUEST_COST, PARTICIPANT_COST } from "@/constants/pricing";
 
 interface ParticipantData {
   name: string;
@@ -30,9 +31,9 @@ export default function Step3Summary({
   onEditGuests,
   onImageUpload,
 }: Step3SummaryProps) {
-  const participantCost = 510;
-  const guestCost = 510;
-  const totalCost = participantCost + guests.length * guestCost;
+  const participantCost = PARTICIPANT_COST;
+  const guestCost = GUEST_COST;
+  const totalCost = calculateTotalCost(guests.length);
 
   return (
     <div className="space-y-6">

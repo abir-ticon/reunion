@@ -1,3 +1,4 @@
+import { calculateTotalCost, GUEST_COST, PARTICIPANT_COST } from "@/constants/pricing";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
@@ -53,9 +54,9 @@ async function loadFont(): Promise<void> {
 export async function generateRegistrationPDF(data: PDFData): Promise<void> {
     await loadFont();
 
-    const participantCost = 510;
-    const guestCost = 510;
-    const totalAmount = participantCost + data.guests.length * guestCost;
+    const participantCost = PARTICIPANT_COST;
+    const guestCost = GUEST_COST;
+    const totalAmount = calculateTotalCost(data.guests.length);
 
     const date = new Date().toLocaleDateString("bn-BD", {
         year: "numeric",
