@@ -41,7 +41,7 @@ export default function Step1ParticipantInfo({
           htmlFor="name"
           className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
-          নাম *
+          নাম <span className="text-red-500 font-bold">*</span>
         </label>
         <input
           type="text"
@@ -68,7 +68,7 @@ export default function Step1ParticipantInfo({
           htmlFor="mobile"
           className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
-          মোবাইল নম্বর *
+          মোবাইল নম্বর <span className="text-red-500 font-bold">*</span>
         </label>
         <div
           className={`react-international-phone ${
@@ -107,7 +107,7 @@ export default function Step1ParticipantInfo({
           htmlFor="email"
           className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
-          ইমেল (ঐচ্ছিক)
+          ইমেল <span className="text-gray-500 text-[12px]">(ঐচ্ছিক)</span>
         </label>
         <input
           type="email"
@@ -126,7 +126,7 @@ export default function Step1ParticipantInfo({
           htmlFor="sscBatch"
           className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
-          এসএসসি ব্যাচ *
+          এসএসসি ব্যাচ <span className="text-red-500 font-bold">*</span>
         </label>
         <div className="relative">
           <select
@@ -170,7 +170,7 @@ export default function Step1ParticipantInfo({
 
       <div>
         <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
-          প্রোফাইল ছবি
+          প্রোফাইল ছবি <span className="text-red-500 font-bold">*</span>
         </label>
         <div
           className="border border-gray-300 rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors"

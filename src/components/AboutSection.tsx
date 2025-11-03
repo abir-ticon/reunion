@@ -20,10 +20,6 @@ export default function AboutSection() {
             <p className="text-lg text-[#696969] mb-8 leading-[26px]">
             আমাদের প্রাক্তন শিক্ষার্থী কর্মসূচির লক্ষ্য হল বিভিন্ন প্রজন্মের শিক্ষার্থীদের একত্রিত করা যাতে তারা স্মৃতি ভাগাভাগি করতে, নেটওয়ার্কিং করতে এবং আমাদের সম্প্রদায়কে শক্তিশালী করতে পারে। আসন্ন পুনর্মিলনী অনুষ্ঠানে যোগ দিন এবং সেই বন্ধন উদযাপন করুন যা আমাদের সবাইকে সংযুক্ত করে।
             </p>
-            <button className="border-2 border-blue-500 text-blue-600 px-12 py-3 rounded-[48px] transition-colors inline-flex items-center space-x-2 cursor-pointer">
-              <span>আরও জানুন</span>
-              <Image width={24} height={24} src="/images/arrow-right.svg" alt="Arrow Right" />
-            </button>
           </div>
 
           {/* Right side - Image */}

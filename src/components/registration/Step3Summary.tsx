@@ -190,7 +190,7 @@ export default function Step3Summary({
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
-            <span>অতিথি যোগ করুন</span>
+            <span>আরও যোগ করুন</span>
           </button>
         </div>
         {guests.length > 0 ? (
