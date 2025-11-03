@@ -1,6 +1,8 @@
 "use client";
 
+import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
 import { useState } from "react";
+import type { ParsedCountry } from "react-international-phone";
 import Step1ParticipantInfo from "./registration/Step1ParticipantInfo";
 import Step2Guests from "./registration/Step2Guests";
 import Step3Summary from "./registration/Step3Summary";
@@ -31,6 +33,7 @@ export default function RegistrationModal({
     email: "",
     sscBatch: "",
     profileImage: null as File | null,
+    countryCode: "+880", // Default to Bangladesh
   });
 
   const [guests, setGuests] = useState<Guest[]>([]);
@@ -39,20 +42,33 @@ export default function RegistrationModal({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+    setParticipantData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    // Only allow numbers for mobile field
-    if (name === "mobile") {
-      const numericValue = value.replace(/[^0-9]/g, "");
-      setParticipantData((prev) => ({
-        ...prev,
-        [name]: numericValue,
-      }));
-    } else {
-      setParticipantData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+  const handlePhoneChange = (
+    phone: string,
+    meta: { country: ParsedCountry; inputValue: string }
+  ) => {
+    // Extract country code from phone number
+    let countryCode = "+880"; // default
+    try {
+      if (phone) {
+        const parsed = parsePhoneNumber(phone);
+        countryCode = `+${parsed.countryCallingCode}`;
+      }
+    } catch {
+      // If parsing fails, use dialCode from country object
+      countryCode = `+${meta.country.dialCode}`;
     }
+
+    setParticipantData((prev) => ({
+      ...prev,
+      mobile: phone,
+      countryCode: countryCode,
+    }));
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,8 +111,14 @@ export default function RegistrationModal({
 
     if (!participantData.mobile.trim()) {
       newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
-    } else if (!/^01[3-9]\d{8}$/.test(participantData.mobile)) {
-      newErrors.mobile = "দয়া করে একটি বাংলাদেশের মোবাইল নম্বর লিখুন";
+    } else {
+      // Use library's built-in validation
+      if (!isValidPhoneNumber(participantData.mobile)) {
+        newErrors.mobile =
+          participantData.countryCode === "+880"
+            ? "দয়া করে একটি বাংলাদেশের মোবাইল নম্বর লিখুন"
+            : "দয়া করে একটি বৈধ মোবাইল নম্বর লিখুন";
+      }
     }
 
     if (!participantData.sscBatch) {
@@ -164,7 +186,8 @@ export default function RegistrationModal({
     const submissionData = {
       participant: {
         name: participantData.name,
-        mobile: participantData.mobile,
+        mobile: participantData.mobile, // Full phone number with country code
+        countryCode: participantData.countryCode,
         email: participantData.email,
         sscBatch: participantData.sscBatch,
         profileImage: participantData.profileImage
@@ -193,6 +216,7 @@ export default function RegistrationModal({
       email: "",
       sscBatch: "",
       profileImage: null,
+      countryCode: "+880",
     });
     setGuests([]);
     setCurrentStep(1);
@@ -217,6 +241,7 @@ export default function RegistrationModal({
             participantData={participantData}
             onInputChange={handleParticipantInputChange}
             onImageUpload={handleImageUpload}
+            onPhoneChange={handlePhoneChange}
             errors={errors}
           />
         );
@@ -254,6 +279,7 @@ export default function RegistrationModal({
             participantData={participantData}
             onInputChange={handleParticipantInputChange}
             onImageUpload={handleImageUpload}
+            onPhoneChange={handlePhoneChange}
             errors={errors}
           />
         );

@@ -6,6 +6,7 @@ interface ParticipantData {
   email: string;
   sscBatch: string;
   profileImage: File | null;
+  countryCode: string;
 }
 
 interface Guest {

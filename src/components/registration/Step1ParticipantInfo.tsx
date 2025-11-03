@@ -1,11 +1,17 @@
+"use client";
+
 import Image from "next/image";
+import type { ParsedCountry } from "react-international-phone";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 interface ParticipantData {
   name: string;
-  mobile: string;
+  mobile: string; // Will store full phone number with country code
   email: string;
   sscBatch: string;
   profileImage: File | null;
+  countryCode: string; // Will be derived from mobile
 }
 
 interface Step1ParticipantInfoProps {
@@ -14,6 +20,10 @@ interface Step1ParticipantInfoProps {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
   onImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onPhoneChange: (
+    phone: string,
+    meta: { country: ParsedCountry; inputValue: string }
+  ) => void;
   errors: Record<string, string>;
 }
 
@@ -21,6 +31,7 @@ export default function Step1ParticipantInfo({
   participantData,
   onInputChange,
   onImageUpload,
+  onPhoneChange,
   errors,
 }: Step1ParticipantInfoProps) {
   return (
@@ -59,22 +70,31 @@ export default function Step1ParticipantInfo({
         >
           মোবাইল নম্বর *
         </label>
-        <input
-          type="tel"
-          id="mobile"
-          name="mobile"
-          value={participantData.mobile}
-          onChange={onInputChange}
-          required
-          maxLength={11}
-          className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors ${
-            errors.mobile
-              ? "border-red-500 focus:border-red-500"
-              : "border-gray-300 focus:border-[#007BFF]"
+        <div
+          className={`react-international-phone ${
+            errors.mobile ? "error" : ""
           }`}
-          style={{ color: "#6A6A6A" }}
-          placeholder="০১XXXXXXXXX"
-        />
+        >
+          <PhoneInput
+            value={participantData.mobile}
+            onChange={(
+              phone: string,
+              meta: { country: ParsedCountry; inputValue: string }
+            ) => {
+              onPhoneChange(phone, meta);
+            }}
+            defaultCountry="bd"
+            inputClassName={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors ${
+              errors.mobile
+                ? "border-red-500 focus:border-red-500"
+                : "border-gray-300 focus:border-[#007BFF]"
+            }`}
+            countrySelectorStyleProps={{
+              buttonClassName:
+                "px-3 py-3 w-16  border border-gray-300 rounded-l-lg focus:outline-none transition-colors hover:border-[#007BFF]",
+            }}
+          />
+        </div>
         {errors.mobile && (
           <p className="mt-1 text-sm text-red-500">{errors.mobile}</p>
         )}
@@ -148,7 +168,7 @@ export default function Step1ParticipantInfo({
 
       <div>
         <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
-        প্রোফাইল ছবি
+          প্রোফাইল ছবি
         </label>
         <div
           className="border border-gray-300 rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors"
