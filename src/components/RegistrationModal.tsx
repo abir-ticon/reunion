@@ -316,7 +316,7 @@ export default function RegistrationModal({
       <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto w-full md:w-[846px] mx-auto px-8 md:px-[154px] py-8 md:py-[64px]">
         {/* Modal Header */}
         <div className="mb-8">
-          <h2 className="md:text-3xl text-xl font-bold text-[#1E293B] flex items-center justify-between">
+          <h2 className="md:text-3xl text-xl font-bold text-[#1E293B] flex items-center justify-between sm:flex-row flex-col">
             {getStepTitle()}
             <p className="text-xl text-[#007BFF] font-medium">
               ধাপ {currentStep} এর 4
