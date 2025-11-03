@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function HeroBanner() {
@@ -25,15 +26,11 @@ export default function HeroBanner() {
           {/* Description */}
           <p className="text-lg md:text-xl mb-8 mx-auto text-[#333]">
             আয়োজনে : ইব্রাহিমপুর ঈশ্বরচন্দ্র উচ্চবিদ্যালয় সম্মিলিত প্রাক্তন
-            ছাত্র পরিষদ । অনুষ্টানের স্থান ও তারিখ স্কুল প্রাঙ্গণ, ১৩ শে
-            ডিসেম্বর, ২০২৫
+            ছাত্র পরিষদ ।
+            <br />
+            অনুষ্টানের স্থান ও তারিখ : <Link className="font-bold" href="https://maps.app.goo.gl/Ka9tdty4WoTF4hW86"
+            target="_blank">স্কুল প্রাঙ্গণ</Link>, ১৩ ই ডিসেম্বর, ২০২৫
           </p>
-          <p className="text-lg md:text-xl mb-8 mx-auto text-[#333]">
-            যোগাযোগ শতবার্ষিকী উদযাপন &apos;রেজিস্ট্রেশন উপ-কমিটি:&apos; আহবায়ক
-            : এস এম আব্দুর রউফ, ফোন নম্বর: ০১৭১৩৩১৬৭৫৪৭ সদস্য সচিব : আশরাফ হোসেন
-            কিরন , ফোন নম্বর: ০১৮৩১৯৮৭৯২২
-          </p>
-
           {/* CTA Button */}
           <button
             type="button"

@@ -3,16 +3,10 @@
 import RegistrationModal from "@/components/RegistrationModal";
 import { ModalProvider, useModal } from "@/contexts/ModalContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 function RegistrationInfoContent() {
   const router = useRouter();
   const { isModalOpen, openModal, closeModal } = useModal();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleYes = () => {
     openModal();
@@ -21,14 +15,6 @@ function RegistrationInfoContent() {
   const handleNo = () => {
     router.push("/");
   };
-
-  if (!mounted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div>লোড হচ্ছে...</div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12" style={{ backgroundImage: "url('/images/hero-bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -100,7 +86,7 @@ function RegistrationInfoContent() {
 
         {/* Action Buttons */}
         <div className="flex gap-4 justify-center sm:flex-row flex-col">
-        <button
+          <button
             type="button"
             onClick={handleNo}
             className="flex-1 sm:flex-none px-8 py-4 border-2 border-[#007BFF] text-[#007BFF] rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors cursor-pointer"

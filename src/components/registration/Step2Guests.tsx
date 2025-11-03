@@ -101,10 +101,25 @@ export default function Step2Guests({
                     className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BFF] transition-colors appearance-none"
                     style={{ color: "#6A6A6A" }}
                   >
-                    <option value="Spouse">স্বামী/স্ত্রী</option>
-                    <option value="Child">সন্তান</option>
-                    <option value="Family">পরিবার</option>
-                    <option value="Friend">বন্ধু</option>
+                    <option value="পিতা">পিতা</option>
+                    <option value="মাতা">মাতা</option>
+                    <option value="পুত্র">পুত্র</option>
+                    <option value="কন্যা">কন্যা</option>
+                    <option value="ভাই">ভাই</option>
+                    <option value="বোন">বোন</option>
+                    <option value="দাদা">দাদা</option>
+                    <option value="দিদিমা">দিদিমা</option>
+                    <option value="নাতি">নাতি</option>
+                    <option value="নাতনি">নাতনি</option>
+                    <option value="চাচা">চাচা</option>
+                    <option value="মামা">মামা</option>
+                    <option value="খালা">খালা</option>
+                    <option value="স্বামী">স্বামী</option>
+                    <option value="স্ত্রী">স্ত্রী</option>
+                    <option value="শ্বশুর">শ্বশুর</option>
+                    <option value="শাশুড়ি">শাশুড়ি</option>
+                    <option value="ছেলের বউ">ছেলের বউ</option>
+                    <option value="মেয়ের জামাই">মেয়ের জামাই</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <Image

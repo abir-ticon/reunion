@@ -88,7 +88,7 @@ export default function RegistrationModal({
     const newGuest: Guest = {
       id: Date.now().toString(),
       name: "",
-      relationship: "Family",
+      relationship: "পিতা",
     };
     setGuests((prev) => [...prev, newGuest]);
   };
