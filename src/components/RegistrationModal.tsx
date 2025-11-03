@@ -2,7 +2,7 @@
 
 import { calculateTotalCost } from "@/constants/pricing";
 import { generateRegistrationPDF } from "@/utils/generatePDF";
-import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
+import { parsePhoneNumber } from "libphonenumber-js";
 import { useState } from "react";
 import type { ParsedCountry } from "react-international-phone";
 import Step1ParticipantInfo from "./registration/Step1ParticipantInfo";
@@ -114,11 +114,6 @@ export default function RegistrationModal({
 
     if (!participantData.mobile.trim()) {
       newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
-    } else {
-      // Validate phone number using libphonenumber-js
-      if (!isValidPhoneNumber(participantData.mobile)) {
-        newErrors.mobile = "দয়া করে একটি বৈধ মোবাইল নম্বর লিখুন";
-      }
     }
 
     if (!participantData.sscBatch) {
@@ -273,6 +268,8 @@ export default function RegistrationModal({
           },
           guests: guests,
           totalCost: totalAmount,
+          registrationId: result.registration_id,
+          paymentId: result.payment_id,
         });
       } catch (error) {
         console.error("Error generating PDF:", error);
@@ -294,19 +291,9 @@ export default function RegistrationModal({
       setCurrentStep(1);
       setIsSubmitting(false);
       onClose();
-
-      // Show success message
-      alert(
-        "নিবন্ধন সফলভাবে জমা দেওয়া হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।"
-      );
     } catch (error) {
       console.error("Error submitting registration:", error);
       setIsSubmitting(false);
-      alert(
-        error instanceof Error
-          ? `ত্রুটি: ${error.message}`
-          : "নিবন্ধন জমা দেওয়ার সময় একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
-      );
     }
   };
 

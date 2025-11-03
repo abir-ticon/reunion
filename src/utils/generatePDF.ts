@@ -20,6 +20,8 @@ interface PDFData {
     participant: ParticipantData;
     guests: Guest[];
     totalCost: number;
+    registrationId?: number;
+    paymentId?: string;
 }
 
 function escapeHtml(text: string): string {
@@ -131,6 +133,18 @@ export async function generateRegistrationPDF(data: PDFData): Promise<void> {
         }
       <div style="font-size: 16px; font-weight: 700; color: #FFFFFF; margin-top: 8px;">মোট: ${totalAmount} BDT</div>
       <div style="font-size: 13px; color: #FFD700; margin-top: 12px; font-weight: 600;">স্ট্যাটাস: অপরিশোধিত (Unpaid)</div>
+      ${data.registrationId
+            ? `<div style="font-size: 13px; color: #FFFFFF; margin-top: 12px; line-height: 1.6;">
+        <span style="font-weight: 600;">নিবন্ধন আইডি:</span> ${escapeHtml(data.registrationId.toString())}
+      </div>`
+            : ""
+        }
+      ${data.paymentId
+            ? `<div style="font-size: 13px; color: #FFFFFF; margin-top: 8px; line-height: 1.6;">
+        <span style="font-weight: 600;">পেমেন্ট আইডি:</span> ${escapeHtml(data.paymentId)}
+      </div>`
+            : ""
+        }
     </div>
   `;
 
