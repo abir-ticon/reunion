@@ -145,7 +145,7 @@ export default function Step1ParticipantInfo({
             <option value="" disabled>
               1980 - 2025
             </option>
-            {Array.from({ length: 45 }, (_, i) => {
+            {Array.from({ length: 100 }, (_, i) => {
               const year = new Date().getFullYear() - i;
               return (
                 <option key={year} value={year}>
@@ -173,15 +173,19 @@ export default function Step1ParticipantInfo({
           প্রোফাইল ছবি <span className="text-red-500 font-bold">*</span>
         </label>
         <div
-          className="border border-gray-300 rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors"
+          className={`border rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors ${
+            errors.profileImage ? "border-red-500" : "border-gray-300"
+          }`}
           onClick={() => document.getElementById("profileImage")?.click()}
         >
           <input
             type="file"
             id="profileImage"
+            name="profileImage"
             onChange={onImageUpload}
             accept="image/*"
             className="hidden"
+            required
           />
           <div className="flex items-center space-x-3 flex-col md:flex-row gap-2 md:gap-0">
             <div className="flex items-center text-[#94A3B8] space-x-2 border border-gray-300 rounded-lg px-2 py-1">
@@ -202,6 +206,9 @@ export default function Step1ParticipantInfo({
             </div>
           </div>
         </div>
+        {errors.profileImage && (
+          <p className="mt-1 text-sm text-red-500">{errors.profileImage}</p>
+        )}
       </div>
     </div>
   );

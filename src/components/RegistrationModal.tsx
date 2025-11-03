@@ -122,6 +122,10 @@ export default function RegistrationModal({
       newErrors.sscBatch = "এসএসসি ব্যাচ প্রয়োজন";
     }
 
+    if (!participantData.profileImage) {
+      newErrors.profileImage = "প্রোফাইল ছবি প্রয়োজন";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
