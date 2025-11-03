@@ -1,6 +1,6 @@
 "use client";
 
-import AboutSection from "@/components/AboutSection";
+// import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
@@ -15,7 +15,7 @@ function AppContent() {
       <Header />
       <div className="pt-20 md:pt-20">
         <HeroBanner />
-        <AboutSection />
+        {/* <AboutSection /> */}
         <Footer />
       </div>
 
