@@ -30,7 +30,7 @@ export default function Step1ParticipantInfo({
           htmlFor="name"
           className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
-          Name *
+          নাম *
         </label>
         <input
           type="text"
@@ -57,7 +57,7 @@ export default function Step1ParticipantInfo({
           htmlFor="mobile"
           className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
-          Mobile Number *
+          মোবাইল নম্বর *
         </label>
         <input
           type="tel"
@@ -85,7 +85,7 @@ export default function Step1ParticipantInfo({
           htmlFor="email"
           className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
-          Email (optional)
+          ইমেল (ঐচ্ছিক)
         </label>
         <input
           type="email"
@@ -104,7 +104,7 @@ export default function Step1ParticipantInfo({
           htmlFor="sscBatch"
           className="block text-sm font-medium text-[#1E293B] mb-2 font-medium"
         >
-          SSC Batch *
+          এসএসসি ব্যাচ *
         </label>
         <div className="relative">
           <select
@@ -148,7 +148,7 @@ export default function Step1ParticipantInfo({
 
       <div>
         <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
-          Profile Image
+        প্রোফাইল ছবি
         </label>
         <div
           className="border border-gray-300 rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors"

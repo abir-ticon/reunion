@@ -265,7 +265,7 @@ export default function RegistrationModal({
   const getStepTitle = () => {
     switch (currentStep) {
       case 1:
-        return "Participant Information";
+        return "অংশগ্রহণকারীর তথ্য";
       case 2:
         return "Add Your Guests (Optional)";
       case 3:
@@ -273,7 +273,7 @@ export default function RegistrationModal({
       case 4:
         return "Payment Checkout";
       default:
-        return "Participant Information";
+        return "অংশগ্রহণকারীর তথ্য";
     }
   };
 

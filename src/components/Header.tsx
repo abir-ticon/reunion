@@ -63,13 +63,13 @@ export default function Header() {
               onClick={scrollToContact}
               className="text-gray-700 hover:text-gray-900 font-medium transition-colors cursor-pointer"
             >
-              Contact Us
+              যোগাযোগ করুন
             </button>
             <button
               onClick={handleRegisterClick}
               className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer"
             >
-              Register Now
+              নিবন্ধন করুন
             </button>
           </div>
 
@@ -118,13 +118,13 @@ export default function Header() {
               onClick={scrollToContact}
               className="text-gray-700 hover:text-gray-900 font-medium transition-colors py-2 text-left cursor-pointer"
             >
-              Contact Us
+              যোগাযোগ করুন
             </button>
             <button
               className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer w-full"
               onClick={handleRegisterClick}
             >
-              Register Now
+             নিবন্ধন করুন
             </button>
           </div>
         </div>
