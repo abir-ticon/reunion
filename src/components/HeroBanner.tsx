@@ -39,6 +39,24 @@ export default function HeroBanner() {
             , ১৩ ই ডিসেম্বর, ২০২৫
           </p>
           {/* CTA Button */}
+
+          <div className="flex items-center flex-col justify-center gap-2 md:gap-2 text-[#333] mb-8">
+            <span className="text-3xl font-bold">যোগাযোগ</span>
+            <div className="flex flex-col gap-2 items-center">
+              <span>শতবার্ষিকী উদযাপন &apos;রেজিস্ট্রেশন উপ-কমিটি&apos;</span>
+
+              <span>
+                আহবায়ক : এস এম আব্দুর রউফ(
+                <a href="tel:017133167547">০১৭১৩৩১৬৭৫৪৭</a>)
+              </span>
+              <span>
+                সদস্য সচিব : আশরাফ হোসেন কিরন(
+                <a href="tel:01831987922">০১৮৩১৯৮৭৯২২</a>)
+              </span>
+            </div>
+          </div>
+
+
           <button
             type="button"
             onClick={openInfoModal}
