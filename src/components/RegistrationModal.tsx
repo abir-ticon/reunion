@@ -2,7 +2,7 @@
 
 import { calculateTotalCost } from "@/constants/pricing";
 import { generateRegistrationPDF } from "@/utils/generatePDF";
-import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
+import { parsePhoneNumber } from "libphonenumber-js";
 import { useState } from "react";
 import type { ParsedCountry } from "react-international-phone";
 import Step1ParticipantInfo from "./registration/Step1ParticipantInfo";
@@ -64,15 +64,6 @@ export default function RegistrationModal({
       if (phone) {
         const parsed = parsePhoneNumber(phone);
         countryCode = `+${parsed.countryCallingCode}`;
-
-        // Clear mobile error if the number is valid for Bangladesh
-        if (isValidPhoneNumber(phone, "BD")) {
-          setErrors((prev) => {
-            const newErrors = { ...prev };
-            delete newErrors.mobile;
-            return newErrors;
-          });
-        }
       }
     } catch {
       // If parsing fails, use dialCode from country object
@@ -84,6 +75,35 @@ export default function RegistrationModal({
       mobile: phone,
       countryCode: countryCode,
     }));
+
+    // Clear error only if there's actual number input beyond country code and meets minimum length
+    if (phone.trim()) {
+      // Check minimum length: 11 digits including country code
+      // Count only digits (excluding +, spaces, dashes, etc.)
+      const digitsOnly = phone.replace(/\D/g, "");
+      if (digitsOnly.length >= 11) {
+        try {
+          const parsed = parsePhoneNumber(phone);
+          if (parsed.nationalNumber && parsed.nationalNumber.length > 0) {
+            setErrors((prev) => {
+              const newErrors = { ...prev };
+              delete newErrors.mobile;
+              return newErrors;
+            });
+          }
+        } catch {
+          // If parsing fails, check if there's content beyond country code
+          const withoutCountryCode = phone.replace(/^\+?\d{1,3}\s*/, "");
+          if (withoutCountryCode && withoutCountryCode.trim().length > 0) {
+            setErrors((prev) => {
+              const newErrors = { ...prev };
+              delete newErrors.mobile;
+              return newErrors;
+            });
+          }
+        }
+      }
+    }
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -144,32 +164,35 @@ export default function RegistrationModal({
       newErrors.name = "নাম প্রয়োজন";
     }
 
-    // Validate mobile number for Bangladesh
+    // Validate mobile number - check if not empty and minimum length
     const mobileValue = participantData.mobile.trim();
 
     if (!mobileValue) {
       newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
     } else {
-      try {
-        // Check if the number is valid for Bangladesh (BD)
-        if (!isValidPhoneNumber(mobileValue, "BD")) {
-          newErrors.mobile =
-            "দয়া করে একটি বৈধ বাংলাদেশ মোবাইল নম্বর লিখুন (যেমন: 017XXXXXXXX)";
-        } else {
-          // Additional check: Verify it's a mobile number (not landline)
-          const parsed = parsePhoneNumber(mobileValue, "BD");
-          const nationalNumber = parsed.nationalNumber;
-
-          // Bangladesh mobile numbers typically have 10 digits
-          // Check if it's a mobile number by verifying it's not a landline
-          // Mobile numbers in BD are typically 10-11 digits starting with 01, 17, etc.
-          if (nationalNumber.length < 10 || nationalNumber.length > 11) {
-            newErrors.mobile = "দয়া করে একটি বৈধ বাংলাদেশ মোবাইল নম্বর লিখুন";
+      // Check minimum length: 11 digits including country code
+      // Count only digits (excluding +, spaces, dashes, etc.)
+      const digitsOnly = mobileValue.replace(/\D/g, "");
+      if (digitsOnly.length < 11) {
+        newErrors.mobile =
+          "মোবাইল নম্বর কমপক্ষে ১১ সংখ্যার হতে হবে (দেশের কোড সহ)";
+      } else {
+        // Check if there's actual number input beyond just country code
+        // PhoneInput with forceDialCode might return just "+880" when empty
+        try {
+          const parsed = parsePhoneNumber(mobileValue);
+          // If national number is empty or only country code, it's invalid
+          if (!parsed.nationalNumber || parsed.nationalNumber.length === 0) {
+            newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
+          }
+        } catch {
+          // If parsing fails, check if it's just country code or empty
+          // Remove country code patterns and check if anything remains
+          const withoutCountryCode = mobileValue.replace(/^\+?\d{1,3}\s*/, "");
+          if (!withoutCountryCode || withoutCountryCode.trim().length === 0) {
+            newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
           }
         }
-      } catch {
-        // If parsing fails, it's an invalid number
-        newErrors.mobile = "দয়া করে একটি বৈধ বাংলাদেশ মোবাইল নম্বর লিখুন";
       }
     }
 
