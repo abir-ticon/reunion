@@ -134,6 +134,7 @@ export async function generateRegistrationPDF(data: PDFData): Promise<void> {
         <br />
         •	সদস্য সচিব: আশরাফ হোসেন কিরণ — ☎ ০১৮৩১৯৮৭৯২২
       </div>
+      <br />
       <div style="font-size: 13px; color: #FFFFFF; margin-bottom: 8px; line-height: 1.6;">
         <span style="font-weight: 600;">অংশগ্রহণকারী:</span> ${participantCost} BDT
       </div>
