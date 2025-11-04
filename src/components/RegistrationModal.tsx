@@ -80,10 +80,30 @@ export default function RegistrationModal({
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setParticipantData((prev) => ({
-        ...prev,
-        profileImage: file,
-      }));
+      const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+      if (file.size > maxSize) {
+        setErrors((prev) => ({
+          ...prev,
+          profileImage: "ছবির আকার সর্বোচ্চ ৫ MB হতে হবে",
+        }));
+        // Clear the file input
+        e.target.value = "";
+        setParticipantData((prev) => ({
+          ...prev,
+          profileImage: null,
+        }));
+      } else {
+        setParticipantData((prev) => ({
+          ...prev,
+          profileImage: file,
+        }));
+        // Clear error if file is valid
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors.profileImage;
+          return newErrors;
+        });
+      }
     }
   };
 
@@ -129,6 +149,12 @@ export default function RegistrationModal({
 
     if (!participantData.profileImage) {
       newErrors.profileImage = "প্রোফাইল ছবি প্রয়োজন";
+    } else {
+      // Validate file size (5 MB = 5242880 bytes)
+      const maxSize = 5 * 1024 * 1024;
+      if (participantData.profileImage.size > maxSize) {
+        newErrors.profileImage = "ছবির আকার সর্বোচ্চ ৫ MB হতে হবে";
+      }
     }
 
     setErrors(newErrors);

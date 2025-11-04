@@ -170,7 +170,7 @@ export default function Step1ParticipantInfo({
 
       <div>
         <label className="block text-sm font-medium text-[#1E293B] mb-2 font-medium">
-          প্রোফাইল ছবি <span className="text-red-500 font-bold">*</span> <span className="text-gray-500 text-[12px]">(Max 5mb)</span>
+          প্রোফাইল ছবি <span className="text-red-500 font-bold">*</span> <span className="text-gray-500 text-[12px]">(সর্বোচ্চ ৫ এমবি)</span>
         </label>
         <div
           className={`border rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors ${

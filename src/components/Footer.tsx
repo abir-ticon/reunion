@@ -9,13 +9,13 @@ export default function Footer() {
         backgroundPosition: "center",
       }}
     >
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="text-center text-[#555555] text-[16px] flex flex-col items-center justify-center gap-4">
           {/* Address */}
 
           {/* Contact Information */}
           
-          <p className="text-md text-[#000] leading-[26px]">
+          <p className="text-md text-[#000]">
             কারিগরি সহযোগিতায়ঃ
             <a
               href="https://ticonsys.com/"
