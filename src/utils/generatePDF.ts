@@ -148,7 +148,7 @@ export async function generateRegistrationPDF(data: PDFData): Promise<void> {
       <div style="font-size: 13px; color: #FFD700; margin-top: 12px; font-weight: 600;">স্ট্যাটাস: অপরিশোধিত (Unpaid)</div>
       ${data.registrationId
             ? `<div style="font-size: 13px; color: #FFFFFF; margin-top: 12px; line-height: 1.6;">
-        <span style="font-weight: 600;">নিবন্ধন আইডি:</span> ${escapeHtml(data.registrationId.toString())}
+        <span style="font-weight: 600;">নিবন্ধন নম্বর:</span> ${escapeHtml(data.registrationId.toString())}
       </div>`
             : ""
         }
