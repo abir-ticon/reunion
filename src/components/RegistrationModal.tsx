@@ -2,7 +2,7 @@
 
 import { calculateTotalCost } from "@/constants/pricing";
 import { generateRegistrationPDF } from "@/utils/generatePDF";
-import { parsePhoneNumber } from "libphonenumber-js";
+import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
 import { useState } from "react";
 import type { ParsedCountry } from "react-international-phone";
 import Step1ParticipantInfo from "./registration/Step1ParticipantInfo";
@@ -64,6 +64,15 @@ export default function RegistrationModal({
       if (phone) {
         const parsed = parsePhoneNumber(phone);
         countryCode = `+${parsed.countryCallingCode}`;
+
+        // Clear mobile error if the number is valid for Bangladesh
+        if (isValidPhoneNumber(phone, "BD")) {
+          setErrors((prev) => {
+            const newErrors = { ...prev };
+            delete newErrors.mobile;
+            return newErrors;
+          });
+        }
       }
     } catch {
       // If parsing fails, use dialCode from country object
@@ -135,12 +144,33 @@ export default function RegistrationModal({
       newErrors.name = "নাম প্রয়োজন";
     }
 
-    // Validate mobile number - check if it's empty or only contains country code
+    // Validate mobile number for Bangladesh
     const mobileValue = participantData.mobile.trim();
-    // Bangladesh numbers are typically +880XXXXXXXXX (11-13 chars total)
-    // Check if it's empty or just country code (less than 8 chars = only country code)
-    if (!mobileValue || mobileValue.length < 8) {
+
+    if (!mobileValue) {
       newErrors.mobile = "মোবাইল নম্বর প্রয়োজন";
+    } else {
+      try {
+        // Check if the number is valid for Bangladesh (BD)
+        if (!isValidPhoneNumber(mobileValue, "BD")) {
+          newErrors.mobile =
+            "দয়া করে একটি বৈধ বাংলাদেশ মোবাইল নম্বর লিখুন (যেমন: 017XXXXXXXX)";
+        } else {
+          // Additional check: Verify it's a mobile number (not landline)
+          const parsed = parsePhoneNumber(mobileValue, "BD");
+          const nationalNumber = parsed.nationalNumber;
+
+          // Bangladesh mobile numbers typically have 10 digits
+          // Check if it's a mobile number by verifying it's not a landline
+          // Mobile numbers in BD are typically 10-11 digits starting with 01, 17, etc.
+          if (nationalNumber.length < 10 || nationalNumber.length > 11) {
+            newErrors.mobile = "দয়া করে একটি বৈধ বাংলাদেশ মোবাইল নম্বর লিখুন";
+          }
+        }
+      } catch {
+        // If parsing fails, it's an invalid number
+        newErrors.mobile = "দয়া করে একটি বৈধ বাংলাদেশ মোবাইল নম্বর লিখুন";
+      }
     }
 
     if (!participantData.sscBatch) {
