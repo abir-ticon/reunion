@@ -18,7 +18,7 @@ export default function HeroBanner() {
     >
       <div className="relative mx-auto pt-[100px] md:pt-[156px] pb-[77px] max-w-7xl px-4">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-[#007BFF] leading-[1.2]">
+          <h1 className="text-4xl md:text-4xl lg:text-6xl font-bold mb-6 text-[#007BFF] leading-[1.2]">
             ইব্রাহিমপুর ইশ্বরচন্দ্র উচ্চ বিদ্যালয়ের <br /> গৌরবোজ্জ্বল শতবর্ষ
             পূর্তি উদযাপন
           </h1>
