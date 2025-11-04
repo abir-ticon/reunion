@@ -198,7 +198,7 @@ export default function Step1ParticipantInfo({
               <span className="text-sm">ছবি আপলোড করুন</span>
             </div>
             <div className="flex-1">
-              <p className="text-gray-500 text-sm">
+              <p className="text-gray-500 text-sm truncate max-w-[200px]">
                 {participantData.profileImage
                   ? participantData.profileImage.name
                   : "কোনো ফাইল নির্বাচন করা হয়নি"}
