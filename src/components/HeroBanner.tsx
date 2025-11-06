@@ -4,7 +4,11 @@ import { useModal } from "@/contexts/ModalContext";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HeroBanner() {
+interface HeroBannerProps {
+  onVerifyClick: () => void;
+}
+
+export default function HeroBanner({ onVerifyClick }: HeroBannerProps) {
   const { openInfoModal } = useModal();
 
   return (
@@ -73,6 +77,7 @@ export default function HeroBanner() {
             </button>
             <button
               type="button"
+              onClick={onVerifyClick}
               className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
             >
               <span>নিবন্ধন যাচাই করুন</span>
@@ -80,7 +85,7 @@ export default function HeroBanner() {
               <Image
                 width={24}
                 height={24}
-                src="/images/arrow-right-white.svg"
+                src="/images/search-icon.svg"
                 alt="Arrow Right"
               />
             </button>
