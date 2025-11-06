@@ -46,13 +46,13 @@ export default function Step3Summary({
           backgroundColor: "white",
         }}
       >
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-start md:items-center mb-6 flex-col md:flex-row gap-4">
           <h3 className="font-semibold text-[#1E293B] text-lg">
             অংশগ্রহণকারীর সারাংশ
           </h3>
           <button
             onClick={onEditParticipant}
-            className="text-[#007BFF] text-sm flex items-center space-x-1 hover:underline font-medium"
+            className="text-[#007BFF] text-sm flex items-start md:items-center space-x-1 hover:underline font-medium cursor-pointer"
           >
             <svg
               className="w-4 h-4"
@@ -122,7 +122,7 @@ export default function Step3Summary({
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
                   নাম
                 </span>
-                <p className="text-[#1E293B]">
+                <p className="text-[#1E293B] text-sm md:text-lg">
                   {participantData.name || "নাম প্রদান করা হয়নি"}
                 </p>
               </div>
@@ -132,7 +132,7 @@ export default function Step3Summary({
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
                   মোবাইল
                 </span>
-                <p className="text-[#1E293B]">
+                <p className="text-[#1E293B] text-sm md:text-lg">
                   {participantData.mobile || "মোবাইল প্রদান করা হয়নি"}
                 </p>
               </div>
@@ -142,7 +142,7 @@ export default function Step3Summary({
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
                   ইমেইল
                 </span>
-                <p className="text-[#1E293B]">
+                <p className="text-[#1E293B] text-sm md:text-lg">
                   {participantData.email || "ইমেইল প্রদান করা হয়নি"}
                 </p>
               </div>
@@ -152,7 +152,7 @@ export default function Step3Summary({
                 <span className="text-[#6A6A6A] text-sm font-medium min-w-[80px]">
                   ব্যাচ
                 </span>
-                <p className="text-[#1E293B]">
+                <p className="text-[#1E293B] text-sm md:text-lg">
                   {participantData.sscBatch || "নির্বাচন করা হয়নি"}
                 </p>
               </div>
@@ -170,7 +170,7 @@ export default function Step3Summary({
           backgroundColor: "white",
         }}
       >
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-6 ">
           <h3 className="font-semibold text-[#1E293B] text-lg">
             অতিথির সারাংশ
           </h3>

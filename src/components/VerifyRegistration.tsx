@@ -349,12 +349,12 @@ export default function VerifyRegistration({
                         </span>
                         <span>{registration.id}</span>
                       </div>
-                      <div className="flex flex-col md:flex-row md:items-center gap-2">
+                      {/* <div className="flex flex-col md:flex-row md:items-center gap-2">
                         <span className="font-semibold min-w-[140px]">
                           পেমেন্ট আইডি:
                         </span>
                         <span>{registration.payment.payment_id}</span>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
