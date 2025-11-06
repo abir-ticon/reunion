@@ -230,9 +230,9 @@ export default function VerifyRegistration({
                     </div>
                   )}
 
-                  <h3 className="text-xl font-semibold text-[#1E293B] mb-4">
+                  {/* <h3 className="text-xl font-semibold text-[#1E293B] mb-4">
                     নিবন্ধন তথ্য
-                  </h3>
+                  </h3> */}
 
                   <div className="flex flex-col md:flex-row gap-4 w-full justify-between">
                     {/* Participant Info */}
