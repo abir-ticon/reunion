@@ -332,6 +332,43 @@ export default function RegistrationModal({
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
+
+        // Check if there are validation errors
+        if (errorData.errors && typeof errorData.errors === "object") {
+          // Map API field names to local field names
+          const fieldMapping: Record<string, string> = {
+            mobile_number: "mobile",
+            profile_image: "profileImage",
+            name: "name",
+            email: "email",
+            ssc_batch: "sscBatch",
+          };
+
+          const mappedErrors: Record<string, string> = {};
+
+          // Process each error field
+          Object.keys(errorData.errors).forEach((apiField) => {
+            const localField = fieldMapping[apiField] || apiField;
+            const errorMessages = errorData.errors[apiField];
+
+            // Get the first error message for each field
+            if (Array.isArray(errorMessages) && errorMessages.length > 0) {
+              mappedErrors[localField] = errorMessages[0];
+            } else if (typeof errorMessages === "string") {
+              mappedErrors[localField] = errorMessages;
+            }
+          });
+
+          // Set errors and navigate to step 1 if there are participant info errors
+          if (Object.keys(mappedErrors).length > 0) {
+            setErrors(mappedErrors);
+            setCurrentStep(1); // Navigate to step 1 to show the errors
+            setIsSubmitting(false);
+            return; // Don't show error popup, errors are shown inline
+          }
+        }
+
+        // If no validation errors or other error, show generic error popup
         throw new Error(
           errorData.message ||
             `API request failed with status ${response.status}`
