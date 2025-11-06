@@ -56,21 +56,35 @@ export default function HeroBanner() {
             </div>
           </div>
 
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={openInfoModal}
+              className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
+            >
+              <span>নিবন্ধন করুন</span>
 
-          <button
-            type="button"
-            onClick={openInfoModal}
-            className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
-          >
-            <span>নিবন্ধন করুন</span>
+              <Image
+                width={24}
+                height={24}
+                src="/images/arrow-right-white.svg"
+                alt="Arrow Right"
+              />
+            </button>
+            <button
+              type="button"
+              className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
+            >
+              <span>নিবন্ধন যাচাই করুন</span>
 
-            <Image
-              width={24}
-              height={24}
-              src="/images/arrow-right-white.svg"
-              alt="Arrow Right"
-            />
-          </button>
+              <Image
+                width={24}
+                height={24}
+                src="/images/arrow-right-white.svg"
+                alt="Arrow Right"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </section>
