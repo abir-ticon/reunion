@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ইব্রাহিমপুর ঈশ্বর চন্দ্র উচ্চ বিদ্যালয় - Alumni Program",
+  title: "ইব্রাহিমপুর ঈশ্বর চন্দ্র উচ্চ বিদ্যালয় - Alumni Program",
   description:
     "Alumni Program Registration for Ibrahimpur Ishwar Chandra High School",
 };

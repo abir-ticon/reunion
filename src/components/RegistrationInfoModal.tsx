@@ -42,7 +42,7 @@ export default function RegistrationInfoModal({
         {/* Modal Header */}
         <div className="mb-6">
           <h2 className="md:text-3xl text-xl font-bold text-[#1E293B] text-center mb-4">
-            রেজিষ্ট্রেশন তথ্য
+            রেজিস্ট্রেশন তথ্য
           </h2>
         </div>
 
@@ -50,7 +50,7 @@ export default function RegistrationInfoModal({
         <div className="mb-6">
           <div className="space-y-6">
             <p className="text-lg font-semibold text-[#1E293B] mb-6">
-              রেজিষ্ট্রেশন এর ব্যাপারে আর-ও কিছু জরুরি তথ্য উপস্থাপন করা হইল :
+              রেজিস্ট্রেশন এর ব্যাপারে আরও কিছু জরুরি তথ্য উপস্থাপন করা হলো:
             </p>
 
             <div className="space-y-4 text-[#1E293B] leading-relaxed">
@@ -58,34 +58,34 @@ export default function RegistrationInfoModal({
                 <p className="mb-2">
                   <span className="font-semibold">১)</span> তিন বছরের নিচের
                   বাচ্চাদের ও সঙ্গে নিয়ে আসা যাবে এবং তাদের জন্য কোন
-                  রেজিষ্ট্রেশন ফি লাগবে না।
+                  রেজিস্ট্রেশন ফি লাগবে না।
                 </p>
               </div>
 
               <div>
                 <p className="mb-2">
                   <span className="font-semibold">২)</span> তিন বছরের উপর থেকে
-                  সবার জন্য রেজিষ্ট্রেশন ফি ৫১০/= টাকা প্রতিজন।
+                  সবার জন্য রেজিস্ট্রেশন ফি ৫১০/= টাকা প্রতিজন।
                 </p>
               </div>
 
               <div>
                 <p className="mb-2">
-                  <span className="font-semibold">৩)</span> যারা রেজিষ্ট্রেশন এর
+                  <span className="font-semibold">৩)</span> যারা রেজিস্ট্রেশন এর
                   যোগ্য হবেন :
                 </p>
                 <ul className="list-none space-y-2 ml-4 mt-2">
                   <li>
                     <span className="font-semibold">ক)</span> স্কুলের সকল
-                    প্রাক্তন ছাত্র ছাত্রী বৃন্দ,
+                    প্রাক্তন ছাত্রছাত্রী বৃন্দ,
                   </li>
                   <li>
                     <span className="font-semibold">খ)</span> প্রাক্তন ছাত্র
-                    ছাত্রী দের স্বামী ও স্ত্রীগন।
+                    ছাত্রী দের স্বামী ও স্ত্রীগণ।
                   </li>
                   <li>
                     <span className="font-semibold">গ)</span> তাদের ছেলে, মেয়ে,
-                    ছেলের বউ ও মেয়র জামাইগন।
+                    ছেলের বউ ও মেয়র জামাতাগণ।
                   </li>
                   <li>
                     <span className="font-semibold">ঘ)</span> প্রাক্তন ছাত্র
@@ -97,7 +97,7 @@ export default function RegistrationInfoModal({
 
               <div className="mt-6">
                 <p className="text-lg font-semibold text-[#007BFF]">
-                  আশাকরি আপনারা স্বপরিবারে অংশগ্রহণ করতে পারবেন।
+                আশা করি আপনারা স্বপরিবারে অংশগ্রহণ করতে পারবেন।
                 </p>
               </div>
             </div>
@@ -118,11 +118,10 @@ export default function RegistrationInfoModal({
             onClick={handleYes}
             className="flex-[60%] px-6 py-3 bg-[#007BFF] text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
           >
-            হ্যাঁ, রেজিষ্ট্রেশন করব
+            হ্যাঁ, রেজিস্ট্রেশন করব
           </button>
         </div>
       </div>
     </div>
   );
 }
-

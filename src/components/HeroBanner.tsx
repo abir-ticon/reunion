@@ -29,10 +29,10 @@ export default function HeroBanner({ onVerifyClick }: HeroBannerProps) {
 
           {/* Description */}
           <p className="text-lg md:text-xl mb-8 mx-auto text-[#333]">
-            আয়োজনে : ইব্রাহিমপুর ঈশ্বরচন্দ্র উচ্চবিদ্যালয় সম্মিলিত প্রাক্তন
+            আয়োজনে: ইব্রাহিমপুর ঈশ্বরচন্দ্র উচ্চবিদ্যালয় সম্মিলিত প্রাক্তন
             ছাত্র পরিষদ ।
             <br />
-            অনুষ্টানের স্থান ও তারিখ :{" "}
+            অনুষ্ঠানের স্থান ও তারিখ :{" "}
             <Link
               className="font-bold"
               href="https://maps.app.goo.gl/Ka9tdty4WoTF4hW86"

@@ -53,7 +53,7 @@ export default function Header() {
             {/* School Name - Hidden on mobile */}
             <div className="text-gray-800 hidden md:block">
               <h1 className="text-lg font-semibold text-[#1E293B]">
-                ইব্রাহিমপুর ঈশ্বর চন্দ্র উচ্চ বিদ্যালয়
+                ইব্রাহিমপুর ঈশ্বর চন্দ্র উচ্চ বিদ্যালয়
               </h1>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function Header() {
             {/* School Name for Mobile */}
             <div className="text-gray-800 md:hidden">
               <h1 className="text-sm font-semibold">
-                ইব্রাহিমপুর ঈশ্বর চন্দ্র উচ্চ বিদ্যালয়
+                ইব্রাহিমপুর ঈশ্বর চন্দ্র উচ্চ বিদ্যালয়
               </h1>
             </div>
 
