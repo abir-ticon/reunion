@@ -85,7 +85,7 @@ export default function RegistrationInfoModal({
                   </li>
                   <li>
                     <span className="font-semibold">গ)</span> তাদের ছেলে, মেয়ে,
-                    ছেলের বউ ও মেয়র জামাতাগণ।
+                    ছেলের বউ ও মেয়ের জামাতাগণ।
                   </li>
                   <li>
                     <span className="font-semibold">ঘ)</span> প্রাক্তন ছাত্র
