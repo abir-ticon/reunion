@@ -40,7 +40,7 @@ export default function HeroBanner({ onVerifyClick }: HeroBannerProps) {
             >
               স্কুল প্রাঙ্গণ
             </Link>
-            , ১৩ ই ডিসেম্বর, ২০২৫
+            , ১৩ ডিসেম্বর, ২০২৫
           </p>
           {/* CTA Button */}
 
