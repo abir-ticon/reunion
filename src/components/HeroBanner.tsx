@@ -23,13 +23,13 @@ export default function HeroBanner({ onVerifyClick }: HeroBannerProps) {
       <div className="relative mx-auto pt-[100px] md:pt-[156px] pb-[77px] max-w-7xl px-4">
         <div className="text-center">
           <h1 className="text-4xl md:text-4xl lg:text-6xl font-bold mb-6 text-[#007BFF] leading-[1.2]">
-            ইব্রাহিমপুর ঈশ্বরচন্দ্র উচ্চ বিদ্যালয়ের <br /> গৌরবোজ্জ্বল শতবর্ষ
+            ইব্রাহিমপুর ঈশ্বর চন্দ্র উচ্চ বিদ্যালয়ের <br /> গৌরবোজ্জ্বল শতবর্ষ
             পূর্তি উদযাপন
           </h1>
 
           {/* Description */}
           <p className="text-lg md:text-xl mb-8 mx-auto text-[#333]">
-            আয়োজনে: ইব্রাহিমপুর ঈশ্বরচন্দ্র উচ্চ বিদ্যালয় সম্মিলিত প্রাক্তন
+            আয়োজনে: ইব্রাহিমপুর ঈশ্বর চন্দ্র উচ্চ বিদ্যালয় সম্মিলিত প্রাক্তন
             ছাত্র পরিষদ ।
             <br />
             অনুষ্ঠানের স্থান ও তারিখ :{" "}
