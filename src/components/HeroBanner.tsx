@@ -59,9 +59,24 @@ export default function HeroBanner({ onVerifyClick }: HeroBannerProps) {
               </span>
             </div>
           </div>
+          <div className="flex items-center flex-col justify-center gap-2 md:gap-2 text-[#333] mb-8 max-w-[800px] mx-auto text-lg md:text-xl">
+            <div className="flex flex-col gap-2 items-center">
+              <span>
+                অনলাইন নিবন্ধন কার্যক্রম সফলভাবে সম্পন্ন হয়েছে, নিবন্ধনের আর
+                সুযোগ থাকছে না । ইব্রাহিমপুর ঈশ্বরচন্দ্র উচ্চ বিদ্যালয়ের
+                সম্মানিত প্রাক্তন শিক্ষার্থীদের আন্তরিক সহযোগিতার জন্য গভীর
+                কৃতজ্ঞতা।
+              </span>
+
+              <span>
+                বিদ্যালয়ের শতবর্ষ উপলক্ষে পূর্ণাঙ্গ ওয়েবসাইট শীঘ্রই সকলের জন্য
+                উন্মুক্ত করা হবে ।
+              </span>
+            </div>
+          </div>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-2">
-            <button
+            {/* <button
               type="button"
               onClick={openInfoModal}
               className="bg-[#007BFF] text-white px-12 py-3 rounded-[48px] text-md transition-colors inline-flex items-center space-x-2 cursor-pointer hover:bg-blue-700"
@@ -74,7 +89,7 @@ export default function HeroBanner({ onVerifyClick }: HeroBannerProps) {
                 src="/images/arrow-right-white.svg"
                 alt="Arrow Right"
               />
-            </button>
+            </button> */}
             <button
               type="button"
               onClick={onVerifyClick}

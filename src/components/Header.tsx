@@ -59,7 +59,7 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-10">
+          {/* <div className="hidden md:flex items-center space-x-10">
             <button
               type="button"
               onClick={handleRegisterClick}
@@ -67,7 +67,7 @@ export default function Header() {
             >
               নিবন্ধন করুন
             </button>
-          </div>
+          </div> */}
 
           {/* Mobile Hamburger Menu Button */}
           <button
@@ -111,13 +111,13 @@ export default function Header() {
             </div>
 
             {/* Mobile Navigation Links */}
-            <button
+            {/* <button
               type="button"
               className="bg-blue-600 text-white px-6 py-3 rounded-[48px] font-medium bg-[#007BFF] hover:bg-blue-700 transition-colors cursor-pointer w-full"
               onClick={handleRegisterClick}
             >
               নিবন্ধন করুন
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
